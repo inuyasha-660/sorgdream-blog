@@ -250,7 +250,9 @@
 <p>因为Pigo默认只能识别图片，想让它识别整个视频的话只能将视频切成图片进行逐一识别，毕竟视频也是图片组成的</p>
 <h3 id="下载视频">下载视频</h3>
 <p>B站不提供直接的视频下载方式，试了几个网站的下载工具发现要不就是不能用，要么分辨率太低，所以这里使用自带的缓存功能</p>
-<p>到手机<code>/storage/emulated/0/Android/data/com.bilibili.app.in/download/</code>目录下，会发现一串以数字命名的文件夹，进入其子目录，会看到一个以数字命名的文件夹，和两个<code>.xml</code>,<code>.json</code>结尾的文件</p>
+<p>到Android设备</p>
+<pre tabindex="0"><code>/storage/emulated/0/Android/data/com.bilibili.app.in/download/
+</code></pre><p>目录下，会发现一串以数字命名的文件夹，进入其子目录，会看到一个以数字命名的文件夹，和两个<code>.xml</code>,<code>.json</code>结尾的文件</p>
 <p>进入数字文件夹，需要的两个文件出现了，<code>audio.m4s</code>为音频文件，<code>video.m4s</code>为视频文件，将音频拓展名重命名为<code>*.mp3</code>，视频为<code>*.mp4</code>，移动到任意剪辑软件能读取的目录</p>
 <p>将两个文件导入剪辑软件，将视频和音频同步拖到对应轨道，导出即可</p>
 <h3 id="切割视频">切割视频</h3>

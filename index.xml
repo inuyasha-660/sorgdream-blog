@@ -136,7 +136,9 @@
 <p>因为Pigo默认只能识别图片，想让它识别整个视频的话只能将视频切成图片进行逐一识别，毕竟视频也是图片组成的</p>
 <h3 id="下载视频">下载视频</h3>
 <p>B站不提供直接的视频下载方式，试了几个网站的下载工具发现要不就是不能用，要么分辨率太低，所以这里使用自带的缓存功能</p>
-<p>到手机<code>/storage/emulated/0/Android/data/com.bilibili.app.in/download/</code>目录下，会发现一串以数字命名的文件夹，进入其子目录，会看到一个以数字命名的文件夹，和两个<code>.xml</code>,<code>.json</code>结尾的文件</p>
+<p>到Android设备</p>
+<pre tabindex="0"><code>/storage/emulated/0/Android/data/com.bilibili.app.in/download/
+</code></pre><p>目录下，会发现一串以数字命名的文件夹，进入其子目录，会看到一个以数字命名的文件夹，和两个<code>.xml</code>,<code>.json</code>结尾的文件</p>
 <p>进入数字文件夹，需要的两个文件出现了，<code>audio.m4s</code>为音频文件，<code>video.m4s</code>为视频文件，将音频拓展名重命名为<code>*.mp3</code>，视频为<code>*.mp4</code>，移动到任意剪辑软件能读取的目录</p>
 <p>将两个文件导入剪辑软件，将视频和音频同步拖到对应轨道，导出即可</p>
 <h3 id="切割视频">切割视频</h3>
@@ -716,7 +718,7 @@ server {
 </span></span></code></pre></div><p>主要添加了别名，其他的可以自己修改</p>
 <p>还有一个镰刀锤子配置也蛮好看的，但使用<code>↑</code>键查看历史命令时有Bug,不介意的可以用</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-.bashrc" data-lang=".bashrc"><span style="display:flex;"><span> PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\e[1;32m\w\n\e[1;33m☭ \[</span><span style="color:#66d9ef">$(</span>tput sgr0<span style="color:#66d9ef">)</span><span style="color:#e6db74">\]&#34;</span>
-</span></span></code></pre></div><p>配置来源: <a href="https://www.zhihu.com/question/19803678/answer/1001803388">https://www.zhihu.com/question/19803678/answer/1001803388</a></p>
+</span></span></code></pre></div><p>配置来源 <a href="https://www.zhihu.com/question/19803678/answer/1001803388">你怎么设置终端 PS1 prompt</a></p>
 <h4 id="sddm美化">SDDM美化</h4>
 <p>我们更换壁纸后一般连同SDDM的背景一起换了，但设置里的SDDM主题管理实在是难用，经常打不开更换界面，推荐直接到主题目录下更换</p>
 <ol>
@@ -1651,10 +1653,10 @@ git push -u origin master
 <h2 id="后记">后记</h2>
 <p>不知道是设置问题还是光猫太老了，ipv6过一段时间就会实效，需要手动重启光猫和机顶盒</p>
 <h2 id="参考部分引用">参考|部分引用</h2>
-<p><a href="https://blog.csdn.net/skyxc233/article/details/107284478">https://blog.csdn.net/skyxc233/article/details/107284478</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/260531160">https://zhuanlan.zhihu.com/p/260531160</a></p>
-<p><a href="https://zhidao.baidu.com/question/201179930957973045/answer/3652646687.html">https://zhidao.baidu.com/question/201179930957973045/answer/3652646687.html</a></p>
-<p><a href="https://github.com/jeessy2/ddns-go">https://github.com/jeessy2/ddns-go</a></p>]]></description>
+<p><a href="https://blog.csdn.net/skyxc233/article/details/107284478i">关闭小米路由器防火墙 放行端口</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/260531160">小米、红米 AC2100 一键开启 SSH，可自定义安装各种插件</a></p>
+<p><a href="https://zhidao.baidu.com/question/201179930957973045/answer/3652646687.html">华为光猫超级密码多少</a></p>
+<p><a href="https://github.com/jeessy2/ddns-go">ddns-go</a></p>]]></description>
       
     </item>
     
@@ -2373,10 +2375,12 @@ db.json
 <h3 id="alist挂载阿里云">alist挂载阿里云</h3>
 <ol>
 <li>刷新令牌
-<!-- raw HTML omitted -->前往 <a href="https://alist.nn.ci/tool/aliyundrive/request.html">https://alist.nn.ci/tool/aliyundrive/request.html</a> ，点击login in，登陆自己的账号即可生成令牌</li>
-<li>Oauth令牌链接
-<!-- raw HTML omitted -->由于原api <code>https://api.nn.ci</code>被sni阻断，导致国内无法连接，所以要添加新的api</li>
+<!-- raw HTML omitted -->前往</li>
 </ol>
+<pre tabindex="0"><code>https://alist.nn.ci/tool/aliyundrive/request.html
+</code></pre><p>点击login in，登陆自己的账号即可生成令牌
+2. Oauth令牌链接
+<!-- raw HTML omitted -->由于原api <code>https://api.nn.ci</code>被sni阻断，导致国内无法连接，所以要添加新的api</p>
 <pre tabindex="0"><code>https://api-cf.nn.ci/alist/ali_open/token   #二选一
 https://api.xhofe.top/alist/ali_open/token
 </code></pre><ol start="3">
