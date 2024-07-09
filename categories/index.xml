@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
+  <channel>
+    <title>Categories on sorgDream&#39;s Blog</title>
+    <link>https://blog.sorgdream.com/categories/</link>
+    <description>Recent content in Categories on sorgDream&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>sorgDream - [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)</copyright>
+    <lastBuildDate>Sat, 17 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.sorgdream.com/categories/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
+    
+    
+    <item>
+      <title>日常</title>
+      <link>https://blog.sorgdream.com/categories/%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Sat, 17 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/%E6%97%A5%E5%B8%B8/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>键盘</title>
+      <link>https://blog.sorgdream.com/categories/%E9%94%AE%E7%9B%98/</link>
+      <pubDate>Sat, 17 Feb 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/%E9%94%AE%E7%9B%98/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>Go</title>
+      <link>https://blog.sorgdream.com/categories/go/</link>
+      <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/go/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>Linux</title>
+      <link>https://blog.sorgdream.com/categories/linux/</link>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/linux/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>图床</title>
+      <link>https://blog.sorgdream.com/categories/%E5%9B%BE%E5%BA%8A/</link>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/%E5%9B%BE%E5%BA%8A/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>hugo</title>
+      <link>https://blog.sorgdream.com/categories/hugo/</link>
+      <pubDate>Sun, 05 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/hugo/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>hexo</title>
+      <link>https://blog.sorgdream.com/categories/hexo/</link>
+      <pubDate>Sun, 17 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/hexo/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>开发板</title>
+      <link>https://blog.sorgdream.com/categories/%E5%BC%80%E5%8F%91%E6%9D%BF/</link>
+      <pubDate>Wed, 23 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/%E5%BC%80%E5%8F%91%E6%9D%BF/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>Kernel</title>
+      <link>https://blog.sorgdream.com/categories/kernel/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/kernel/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>终端</title>
+      <link>https://blog.sorgdream.com/categories/%E7%BB%88%E7%AB%AF/</link>
+      <pubDate>Sat, 05 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/categories/%E7%BB%88%E7%AB%AF/</guid>
+      <description><![CDATA[]]></description>
+      
+    </item>
+    
+    
+  </channel>
+</rss>

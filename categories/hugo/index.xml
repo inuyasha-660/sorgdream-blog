@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
+  <channel>
+    <title>hugo on sorgDream&#39;s Blog</title>
+    <link>https://blog.sorgdream.com/categories/hugo/</link>
+    <description>Recent content in hugo on sorgDream&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>sorgDream - [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)</copyright>
+    <lastBuildDate>Sun, 05 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.sorgdream.com/categories/hugo/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
+    
+    
+    <item>
+      <title>博客迁移至hugo</title>
+      <link>https://blog.sorgdream.com/posts/hugo/</link>
+      <pubDate>Sun, 05 Nov 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/posts/hugo/</guid>
+      <description><![CDATA[<p>前几天，因为一个主题，我把博客从hexo换成hugo，也就是现在看到的</p>
+<h2 id="迁移">迁移</h2>
+<p>hugo的操作比hexo要难，热门程度也不及hexo，所以遇到一些问题需要自己解决</p>
+<h3 id="安装">安装</h3>
+<ol>
+<li>用<code>sudo apt install git</code>安装git</li>
+<li>到<a href="https://go.dev/dl/">All releases</a>找到Linux下载go</li>
+<li>用以下命令提取下载的archive</li>
+</ol>
+<pre tabindex="0"><code class="language-command" data-lang="command">rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
+</code></pre><ol start="4">
+<li>编辑<code>/etc/profile</code>(系统范围安装)，添加环境变量</li>
+</ol>
+<pre tabindex="0"><code>export PATH=$PATH:/usr/local/go/bin
+</code></pre><p>完成后使用<code>source /etc/profile</code>即可完成安装</p>
+<ol start="5">
+<li>
+<p>使用<code>sudo apt install snapd</code>安装snap</p>
+</li>
+<li>
+<p>使用<code>sudo snap install dart-sass</code>安装dart-sass</p>
+</li>
+<li>
+<p>使用<code>sudo snap install hugo</code>安装hugo</p>
+</li>
+</ol>
+<h3 id="建站">建站</h3>
+<p>三连快速创建</p>
+<pre tabindex="0"><code class="language-command" data-lang="command">hugo new site &lt;sitename&gt;
+cd &lt;sitename&gt;
+git init
+</code></pre><p>这时候可以下载你喜欢的主题了，编辑<code>hugo.toml</code>，添加<code>theme = &quot;themename&quot;</code>指定主题</p>
+<h3 id="基础">基础</h3>
+<p>基础的指令和hexo差不多，不过原本的source变成了content，使用<code>hexo server</code>即可
+<!-- raw HTML omitted -->如果提示<code>由于本地 development 环境的限制， 评论系统 , CDN 和 fingerprint 不会在 development 环境下启用。</code>，使用<code>hugo server -e production</code>更改环境即可</p>
+<p>文章直接复制过来就能用，不过tags和categories的书写方式有点不同</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>tags: 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> tags1
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> tegs2
+</span></span><span style="display:flex;"><span>categories:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> catrgories1
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">-</span> categories2
+</span></span></code></pre></div><h2 id="部署">部署</h2>
+<p>hexo的部署很简单，<code>hexo g</code>生成页面<code>hexo d</code>部署，同样需要ssh key，而hugo需要手动push到repo</p>
+<pre tabindex="0"><code class="language-command" data-lang="command">hugo # 生成页面
+cd public
+git init # 初始化仓库
+git remote add origin &lt;repo link&gt;
+git add .
+git commit -m &#34;提交说明&#34;
+git push -u origin master
+</code></pre><p>这是访问域名，不出意外应该能看到你的博客</p>
+<h2 id="命令">命令</h2>
+<p>更新主题(FixIt)</p>
+<pre tabindex="0"><code class="language-command" data-lang="command">git submodule update --remote --merge
+</code></pre><h2 id="阿里云服务器">阿里云服务器</h2>
+<p>因为依然部署在Github Page，所以访问还是有点慢，于是我打开阿里云，想看看有什么便宜的服务器，突然看到免费试用三个月，这种好事怎么能错过</p>
+<h3 id="配置">配置</h3>
+<ul>
+<li>2核2GB或者2核4GB</li>
+<li>每月280元额度，3个月试用时长</li>
+</ul>
+<p>这配置搭建博客可谓是绰绰有余</p>
+<h2 id="主页导航页">主页(导航页)</h2>
+<p>域名目前只解析了博客，闲着也是闲着，不如建一个导航页</p>
+<h3 id="搭建">搭建</h3>
+<p>使用了<a href="https://github.com/kaygb/KZHomePage">KZHomePage</a>的主页，稍微配置下还是很好看的</p>
+<ol>
+<li>将仓库git到你的服务器</li>
+</ol>
+<pre tabindex="0"><code class="language-command" data-lang="command">git clone https://github.com/kaygb/KZHomePage.git
+</code></pre><ol start="2">
+<li>在喜欢的地方新建一个用于存放主页的文件夹</li>
+<li>使用<code>sudo apt install nginx</code>安装Nginx</li>
+<li>使用<code>sudo systemctl enable nginx</code>设置开机自启</li>
+<li>启动Nginx<code>sudo systemctl start nginx</code></li>
+<li><code>sudo systemctl status nginx</code>查看Ngxin状态</li>
+</ol>
+<p>访问域名/IP，若出现<code>Welcome to Nginx</code>即为成功</p>
+<h3 id="配置nginx">配置Nginx</h3>
+<p>编写配置文件<code>sudo nvim /etc/nginx/conf.d/yoursite.com.conf</code></p>
+<p>写入以下配置</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen 80;
+    server_name yoursite.com;
+    root path-to-blog-name;
+    location / {
+    }
+}
+</code></pre><p><code>80</code>为监听端口，<code>yoursite.com</code>为你的域名，<code>path-to-blog-name</code>为存放主页文件夹的位置</p>
+<p>完成后使用<code>sudo systemctl restart nginx</code>重启Ngixn服务，访问域名查看是否生效</p>
+<p>之后就简单多了，修改<code>index.html</code>，可以看作者写的<a href="https://www.kezez.com/archives/25.html">教程</a>无需重新启动，刷新即可</p>
+<h3 id="博客">博客</h3>
+<p>博客和主页差不多，将Github上的仓库git clone下载，再创建一个文件夹用于存放，一个配置文件，端口改成你想要的，别太离谱即可</p>
+<p>完成后设置域名解析，直接解析到你的IP，博客可以添加隐性url转发到你的域名+端口</p>
+<h2 id="总结">总结</h2>
+<p>因为没有备案，所以只能通过IP访问网站，不得不说，阿里云的服务器是真的贵，终于明白未成年不能备案的原因了</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://thooooor.github.io/posts/%E8%84%B1%E5%9D%91%E8%AE%B0%E5%BD%95/hugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/#33-%E6%9C%8D%E5%8A%A1%E5%99%A8">基于hugo搭建博客并部署</a></p>
+</li>
+<li>
+<p><a href="http://www.sulvblog.cn/posts/blog/hugo_deploy/">hugo博客部署到腾讯云轻量级服务器</a></p>
+</li>
+<li>
+<p><a href="https://gohugo.io/">HUGO</a></p>
+</li>
+</ul>
+]]></description>
+      
+    </item>
+    
+    
+  </channel>
+</rss>

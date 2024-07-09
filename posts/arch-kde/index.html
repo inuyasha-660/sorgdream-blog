@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+    
+    <meta name="robots" content="noai, noimageai">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+
+    <link
+    rel="icon"
+    href='/avatar.jpg'
+/>
+<link
+    rel="shortcut icon"
+    href='/avatar.jpg'
+    type="image/x-icon"
+/>
+<link
+    rel="apple-touch-icon"
+    href='/avatar.jpg'
+/>
+
+    <link
+        rel="icon"
+        href='/avatar.jpg'
+        type="image/svg+xml"
+    />
+
+<title>
+        
+            Arch下的Kde配置  &ndash;
+        
+        sorgDream&#39;s Blog
+    </title>
+
+    
+    <link href="/symbols-nerd-font/symbols-nerd-font.css" rel="stylesheet" integrity="sha512-lydow8GLOLlYNOtHlksNCmGWWCBsbIEtikXpHzfWqx78HLlyQZHOzyLwPpKol4Th6aCwLUXOfODVYgwrd3nwKQ=="/>
+    <link href="/jetbrains-mono/jetbrains-mono.css" rel="stylesheet" integrity="sha512-tJxlgL6v1Y7kFf+qB8SloaAMKnOAw6WouknxXtIjkBux9Y/9aX81EUWOJO8c/3l98DmjG8brr4to7zaez606Fg=="/>
+
+    
+    
+    <link type="text/css" rel="stylesheet" href=https://blog.sorgdream.com/css/styles.abbd6311bb4b6ca58f8e7398140529245ae0f6428b759fcd830742eee2619eabb900ba9914a9affb82aa9a16a9b9ea727bb315315a976a0db0e7513a5f12c504.css integrity="sha512-q71jEbtLbKWPjnOYFAUpJFrg9kKLdZ/NgwdC7uJhnqu5ALqZFKmv&#43;4Kqmhapuepye7MVMVqXag2w51E6XxLFBA==" />
+<meta name="author" content="sorgDream" />
+
+    
+        <meta name="keywords" content='Kernel, Linux' />
+    
+    
+        <meta name="description" content="重装了6次Arch后的主流桌面简报" />
+    
+
+<meta property="og:site_name"
+    content='sorgDream&#39;s Blog' />
+
+    <meta property="og:title" content="Arch下的Kde配置" />
+    <meta property="og:type" content="article" />
+    
+    <meta
+        property="article:author" content="sorgDream" />
+    <meta
+        property="article:published_time"
+        content='2024-01-14T00:00:00Z&#43;0000' />
+    
+        
+            <meta property="article:tag" content="Kernel" />
+        
+            <meta property="article:tag" content="Linux" />
+        
+    
+    <meta property="og:url" content="https://blog.sorgdream.com/posts/arch-kde/" />
+    
+    
+    <meta property="og:image"
+        content="https://blog.sorgdream.com/avatar.jpg" />
+    
+        <meta property="og:description" content="重装了6次Arch后的主流桌面简报" />
+    
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain"
+      content='blog.sorgdream.com'
+/>
+<meta property="twitter:url" content="https://blog.sorgdream.com/posts/arch-kde/" />
+
+
+    <meta name="twitter:title" content="Arch下的Kde配置" />
+    
+    
+    
+    <meta name="twitter:image"
+        content="https://blog.sorgdream.com/avatar.jpg" />
+    
+        <meta name="twitter:description" content="重装了6次Arch后的主流桌面简报" />
+    
+
+<link rel="manifest" href="/manifest/index.json" />
+</head>
+
+
+<body>
+        <div id="baseContainer"><header class="">
+<div class="titleAndSearchContainer">
+        <div id="titleContainer">
+            
+                <a class="unstyledLink" href="/">
+                    <img src='/avatar.jpg' alt='Logo'/>
+                </a>
+            
+            <div class="rightOfLogo">
+                <div class="titleAndHamburger">
+                    <h1>
+                        <a class="unstyledLink" href="/">sorgDream&#39;s Blog</a>
+                        
+                    </h1>
+                    
+                </div>
+                <div id="wide_nav"><nav>
+    
+    <ul id="main-nav">
+        <li><a href="/">Home</a></li>
+        
+            <li><a href="/posts/">Posts</a></li>
+        
+        
+        
+        
+        
+        
+            <li><a href="/about/">About</a></li>
+        
+            <li><a href="/friends/">Friends</a></li>
+        
+        
+            <li><a href="/tags/">Tags</a></li>
+        
+        
+    </ul>
+</nav>
+</div>
+            </div>
+        </div>
+        <div class="search">
+    <input id="searchbar" type="text" placeholder='Search' />
+    <span class="nerdlink" onclick="newSearch();">&#xf002;</span>
+</div>
+<script>
+    function newSearch() {
+        let term = searchbar.value.trim();
+        if (!term) return;
+        location.href = `/search/?q=${term}`;
+    }
+    searchbar.onkeyup = (ev) => {if (ev.keyCode == 13) newSearch()};
+</script>
+
+    </div>
+    <div id="links">
+        <a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="/index.xml">
+    
+    
+        &#xf09e;
+    
+    <span>
+        RSS
+    </span>
+</a>
+
+        
+        <a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="mailto:inuyasha-660@outlook.com">
+    
+    
+        &#xf6ed;
+    
+    <span>
+        Email
+    </span>
+</a>
+<a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="https://github.com/inuyasha-660">
+    
+    
+        &#xf09b;
+    
+    <span>
+        Github
+    </span>
+</a>
+<a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="https://x.com/inuyasha_660">
+    
+    
+        &#xf099;
+    
+    <span>
+        Twitter
+    </span>
+</a>
+
+    </div>
+    
+
+</header>
+<div id="contentContainer">
+                <div id="content">
+                    <main>
+<article class="card single">
+    
+        <h1>Arch下的Kde配置</h1>
+    
+    
+        <p class="date">
+            <span title='Date'> </span>
+    2024-01-14
+
+</p>
+    
+    
+    
+    <div class="articleToc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#起因">起因</a></li>
+    <li><a href="#hyprland">Hyprland</a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#应用安装">应用安装</a></li>
+      </ul>
+    </li>
+    <li><a href="#gnome">Gnome</a></li>
+    <li><a href="#cinnamon">Cinnamon</a></li>
+    <li><a href="#kde-plasma">KDE Plasma</a>
+      <ul>
+        <li><a href="#汉化不完全">汉化不完全</a></li>
+        <li><a href="#系统代理">系统代理</a></li>
+        <li><a href="#常用应用">常用应用</a></li>
+        <li><a href="#bash">Bash</a></li>
+      </ul>
+    </li>
+    <li><a href="#内核编译">内核编译</a></li>
+    <li><a href="#参考引用">参考|引用</a></li>
+  </ul>
+</nav>
+    <hr />
+</div>
+
+    <div><p>2024年的第一篇文章，祝大家新年快乐(虽然有点迟了)</p>
+<p>这段时间重装了6次Arch，1次Debian Testing，几乎将主流桌面体验完了，血与泪的教训，wayland目前还不成熟，高分屏还得老老实实用x11</p>
+<h2 id="起因">起因</h2>
+<p>逛B站时偶然看到了有人发<a href="https://www.bilibili.com/read/cv22707313/">Hyprland的配置</a>，再看我的Kde瞬间就不香了</p>
+<p>拿出我珍藏多年的Arch Live CD ，F12选择U盘启动，在经过一系列分区，生成fstab，引导后，成功来到了熟悉的tty界面，接下来照着B站的教程，开始安装Hyprland</p>
+<h2 id="hyprland">Hyprland</h2>
+<blockquote>
+<p>Hyprland is a highly customizable dynamic tiling Wayland compositor that doesn&rsquo;t sacrifice on its looks.</p>
+</blockquote>
+<blockquote>
+<p>Hyprland 是一款高度可定制的动态平铺 Wayland 合成器，不会牺牲其外观。</p>
+</blockquote>
+<h3 id="安装">安装</h3>
+<ol>
+<li>首先安装Wayland</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pacman -S xorg-xwayland qt5-wayland qt6-wayland glfw-wayland
+</span></span></code></pre></div><ol start="2">
+<li>安装Hyprland</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paru -S hyprland-bin
+</span></span></code></pre></div><ol start="3">
+<li>复制配置文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -pv ~/.config/hypr
+</span></span><span style="display:flex;"><span>sudo cp /usr/share/hyprland/hyprland.conf ~/.config/hypr/
+</span></span></code></pre></div><ol start="4">
+<li>Hyprland启动</li>
+</ol>
+<p>通过编辑<code>~/.bash_profile</code>启动(不使用显示管理器)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 启动 wayland 桌面前设置一些环境变量</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> set_wayland_env
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	cd <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 设置语言环境为中文</span>
+</span></span><span style="display:flex;"><span>	export LANG<span style="color:#f92672">=</span>zh_CN.UTF-8
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 解决QT程序缩放问题</span>
+</span></span><span style="display:flex;"><span>	export QT_AUTO_SCREEN_SCALE_FACTOR<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># QT使用wayland和gtk</span>
+</span></span><span style="display:flex;"><span>	export QT_QPA_PLATFORM<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wayland;xcb&#34;</span>
+</span></span><span style="display:flex;"><span>	export QT_WAYLAND_DISABLE_WINDOWDECORATION<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 使用qt5ct软件配置QT程序外观</span>
+</span></span><span style="display:flex;"><span>	export QT_QPA_PLATFORMTHEME<span style="color:#f92672">=</span>qt5ct
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 一些游戏使用wayland</span>
+</span></span><span style="display:flex;"><span>	export SDL_VIDEODRIVER<span style="color:#f92672">=</span>wayland
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 解决java程序启动黑屏错误</span>
+</span></span><span style="display:flex;"><span>	export _JAVA_AWT_WM_NONEREPARENTING<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># GTK后端为 wayland和x11,优先wayland</span>
+</span></span><span style="display:flex;"><span>	export GDK_BACKEND<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;wayland,x11&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 命令行输入这个命令启动hyprland,可以自定义</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> start_hyprland
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	set_wayland_env
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	export XDG_SESSION_TYPE<span style="color:#f92672">=</span>wayland
+</span></span><span style="display:flex;"><span>	export XDG_SESSION_DESKTOP<span style="color:#f92672">=</span>Hyprland
+</span></span><span style="display:flex;"><span>	export XDG_CURRENT_DESKTOP<span style="color:#f92672">=</span>Hyprland
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># 启动 Hyprland程序</span>
+</span></span><span style="display:flex;"><span>	exec Hyprland
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>重启或直接<code>source ~/.bash_profile</code>使配置生效，输入<code>start_hyprland</code>启动</p>
+<h3 id="应用安装">应用安装</h3>
+<p>刚进入桌面，你会发现什么也没有，先装个终端和中文字体</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S kitty wqy-zenhei
+</span></span></code></pre></div><p>使用快捷键<code>Super+Q</code>即可启动(Super键默认为WIN)</p>
+<p>貌似一切都很完美，让我们装个QQ试逝</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>paru -S linuxqq
+</span></span></code></pre></div><p>打开后你会发现字体变得很模糊，不止qq,其他程序在wayland缩放下的显示都不太好</p>
+<h2 id="gnome">Gnome</h2>
+<blockquote>
+<p>GNOME originally an acronym for GNU Network Object Model Environment,is a free and open-source desktop environment for Linux and other Unix-like operating systems.</p>
+</blockquote>
+<blockquote>
+<p>GNOME是一个完全由自由软件组成的桌面环境。它的目标操作系统是Linux，但是大部分的BSD系统亦支持GNOME。</p>
+</blockquote>
+<p>因为Hyprland的字体问题，我回到了一开始用的gnome;但因为使用wayland的原因，qq下的字体还是模糊，而且缩放有问题，200%会使字体和窗口过大，100%字又太小</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gsettings set org.gnome.mutter experimental-features <span style="color:#e6db74">&#34;[&#39;scale-monitor-framebuffer&#39;]&#34;</span>
+</span></span></code></pre></div><p>使用此命令开启分数缩放</p>
+<p>缩放是解决了，但字体的问题依旧，目前没找到完美的解决方案，只能用<code>Tweaks</code>工具调整字体大小</p>
+<h2 id="cinnamon">Cinnamon</h2>
+<blockquote>
+<p>Cinnamon, forked from GNOME Shell, is the &ldquo;shell&rdquo; of Cinnamon. It provides the user interface such as panels, hot corners, menus etc. The ui is written in JavaScript, while its core libraries are written in C.</p>
+</blockquote>
+<blockquote>
+<p>Cinnamon是类Unix系统下的一个桌面环境。最初是GNOME Shell的一个派生版本，由Linux Mint开发，提供了相似于GNOME 2，易于使用的传统用户界面，从Cinnamon 2.0开始，成为独立的桌面环境。</p>
+</blockquote>
+<p>一个由Mint开发的桌面，也是Linux Mint的默认桌面</p>
+<p>Cinnamon不同于前两个，使用的是x11，所以基本没有字体和缩放问题，而且桌面和发生版都很适合新手，Debian系的包也比较多</p>
+<p>但我不是很喜欢Cinnamon的设计，所以没有使用它</p>
+<h2 id="kde-plasma">KDE Plasma</h2>
+<blockquote>
+<p>Plasma is a graphical shell developed by KDE for Unix-like operating systems. Plasma is a standard desktop interface.</p>
+</blockquote>
+<blockquote>
+<p>KDE 是一套由 Plasma 桌面环境、一系列的库、框架（KDE Frameworks）和一些应用组成的软件项目。</p>
+</blockquote>
+<p>目前在用的桌面，自定义程度很高，记录下配置过程</p>
+<h3 id="汉化不完全">汉化不完全</h3>
+<p>表现为设置/文件管理器一半中文一半英文</p>
+<p>编辑<code>~/.config/plasma-localerc</code>将<code>LANG=h_CN</code>改为<code>LANG=zh_CN.UTF-8</code>，重启后即可解决</p>
+<h3 id="系统代理">系统代理</h3>
+<ol>
+<li>
+<p>手机代理设置-允许来自局域网连接，记录端口;在设置-网络设置-代理服务器中选择-使用手动指定的的代理服务器配置</p>
+</li>
+<li>
+<p>手机任意终端<code>su</code>后使用<code>ifconfig</code>获取本机IP,填入代理设置</p>
+</li>
+<li>
+<p>终端走代理</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export https_proxy<span style="color:#f92672">=</span>http://127.0.0.1:7890 http_proxy<span style="color:#f92672">=</span>http://127.0.0.1:7890 all_proxy<span style="color:#f92672">=</span>socks5://127.0.0.1:7891
+</span></span></code></pre></div><p><code>7890</code>/<code>7891</code>为端口号，<code>127.0.0.1</code>为IP</p>
+<h3 id="常用应用">常用应用</h3>
+<h4 id="1-neovim">1. neovim</h4>
+<p>使用<a href="https://github.com/ayamir/nvimdots">nvimdots</a>配置，另一选择<a href="https://github.com/NvChad/NvChad">NcChad</a></p>
+<blockquote>
+<p>LazyVim is a Neovim setup powered by 💤 lazy.nvim to make it easy to customize and extend your config. Rather than having to choose between starting from scratch or using a pre-made distro, LazyVim offers the best of both worlds - the flexibility to tweak your config as needed, along with the convenience of a pre-configured setup.</p>
+</blockquote>
+<h5 id="11-安装">1.1 安装</h5>
+<ol>
+<li>1.1.1 <strong>依赖</strong><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></li>
+</ol>
+<ul>
+<li>Neovim &gt;= 0.9.0 (needs to be built with LuaJIT)</li>
+<li>Git &gt;= 2.19.0 (for partial clones support)</li>
+<li>a Nerd Font (optional)</li>
+<li>a C compiler for nvim-treesitter. See here</li>
+</ul>
+<ol start="2">
+<li>1.1.2 安装</li>
+</ol>
+<p>克隆配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/LazyVim/starter ~/.config/nvim
+</span></span></code></pre></div><p>nvim启动!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nvim
+</span></span></code></pre></div><h5 id="12-nvim下的复制粘贴">1.2 nvim下的复制粘贴</h5>
+<p><code>sudo pacman -S xclip</code>安装xclip后，使用<code>v</code>选中要复制的内容，<code>y</code>复制，<code>p</code>粘贴，<code>d</code>剪切</p>
+<h4 id="2-neofetch">2. neofetch</h4>
+<p>相信用过Linux的都听说过这个软件，它能显示系统Ascii art和硬件信息，可以通过修改<code>~/.config/neofetch/config.conf</code>进行配置</p>
+<p>参考<a href="https://github.com/Kicamon/dotfile/blob/main/neofetch/config.conf">Kicamon</a>的配置，进行了一些修改，用<code>-</code>代替图标</p>
+<h4 id="3-网易云音乐">3. 网易云音乐</h4>
+<p>写文章时没点音乐怎么行，目前Arch下我认为比较好的解决方法一是<a href="https://github.com/qier222/YesPlayMusic">yesplaymusic</a>，第二个就是<a href="https://github.com/go-musicfox/go-musicfox">go-musicfox</a></p>
+<p>不过yesplaymusic尝试过三种登陆方式均无法登陆，遂只能使用go-musicfox</p>
+<blockquote>
+<p>go-musicfox是用Go写的又一款网易云音乐命令行客户端，支持UnblockNeteaseMusic、各种音质级别、lastfm、MPRIS、MacOS交互响应（睡眠暂停、蓝牙耳机连接断开响应、菜单栏控制等）&hellip;</p>
+</blockquote>
+<ol>
+<li>使用<code>pacman -S go-musicfox</code>安装go-musicfox</li>
+<li>输入<code>musicfox</code>进入tui</li>
+<li>点击-<code>我的歌单</code>进行登陆</li>
+</ol>
+<h5 id="31-无法播放">3.1 无法播放</h5>
+<p>如果你很幸运，能直接播放，可以忽略这一步</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S pulseaudio-alsa libavtp
+</span></span></code></pre></div><p>安装缺少的两个包就可以播放了</p>
+<h5 id="32-快捷键">3.2 快捷键</h5>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>←</code>  <code>h</code></td>
+<td>左方向</td>
+</tr>
+<tr>
+<td><code>→</code> <code>l</code></td>
+<td>右方向</td>
+</tr>
+<tr>
+<td><code>↑</code> <code>k</code></td>
+<td>上方向</td>
+</tr>
+<tr>
+<td><code>↓</code> <code>j</code></td>
+<td>下方向</td>
+</tr>
+<tr>
+<td><code>-</code> <code>滚轮下</code></td>
+<td>减小音量</td>
+</tr>
+<tr>
+<td><code>=</code> <code>滚轮上</code></td>
+<td>增大音量</td>
+</tr>
+<tr>
+<td><code>q</code></td>
+<td>退出</td>
+</tr>
+<tr>
+<td><code>Space</code> (空格)</td>
+<td>暂停/播放</td>
+</tr>
+</tbody>
+</table>
+<p>更多快捷键请看<a href="https://github.com/go-musicfox/go-musicfox">README</a></p>
+<h3 id="bash">Bash</h3>
+<p>这次安装我离开了Zsh，重新回到了Bash的怀抱，但默认的Prompt太丑了，只显示最后一级路径，于是<del>抄</del>参考<a href="https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc/">Gentoo</a>的<code>.bashrc</code>，重新配置了下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-.bashrc" data-lang=".bashrc"><span style="display:flex;"><span><span style="color:#75715e"># /etc/bash/bashrc</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This file is sourced by all *interactive* bash shells on startup,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># including some apparently interactive shells such as scp and rcp</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># that can&#39;t tolerate any output.  So make sure this doesn&#39;t display</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># anything or bad things will happen!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test for an interactive shell.  There is no need to set anything</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># past this point for scp and rcp, and it&#39;s important to refrain from</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># outputting anything in those cases.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> $- !<span style="color:#f92672">=</span> *i* <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Shell is non-interactive.  Be done now!</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Bash won&#39;t get SIGWINCH if another process is in the foreground.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable checkwinsize so that bash will check the terminal size when</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># it regains control.  #65623</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)</span>
+</span></span><span style="display:flex;"><span>shopt -s checkwinsize
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disable completion when the input buffer is empty.  i.e. Hitting tab</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># and waiting a long time for bash to expand all of $PATH.</span>
+</span></span><span style="display:flex;"><span>shopt -s no_empty_cmd_completion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Enable history appending instead of overwriting when exiting.  #139609</span>
+</span></span><span style="display:flex;"><span>shopt -s histappend
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Save each command to the history file as it&#39;s executed.  #517342</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># This does mean sessions get interleaved when reading later on, but this</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># way the history is always up to date.  History is not synced across live</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># sessions though; that is what `history -n` does.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Disabled by default due to concerns related to system recovery when $HOME</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># is under duress, or lives somewhere flaky (like NFS).  Constantly syncing</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># the history will halt the shell prompt until it&#39;s finished.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#PROMPT_COMMAND=&#39;history -a&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Change the window title of X terminals</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#e6db74">${</span>TERM<span style="color:#e6db74">}</span> in
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>aEkx<span style="color:#f92672">]</span>term* | rxvt* | gnome* | konsole* | interix | tmux*<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[\033]0;\u@\h:\w\007\]&#39;</span>
+</span></span><span style="display:flex;"><span>	;;
+</span></span><span style="display:flex;"><span>screen*<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;\[\033_\u@\h:\w\033\\\]&#39;</span>
+</span></span><span style="display:flex;"><span>	;;
+</span></span><span style="display:flex;"><span>*<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	unset PS1
+</span></span><span style="display:flex;"><span>	;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set colorful PS1 only on colorful terminals.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># dircolors --print-database uses its own built-in database</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># instead of using /etc/DIR_COLORS.  Try to use the external file</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># first to take advantage of user additions.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># We run dircolors directly due to its changes in file syntax and</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># terminal name patching.</span>
+</span></span><span style="display:flex;"><span>use_color<span style="color:#f92672">=</span>false
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> type -P dircolors &gt;/dev/null; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Enable colors for ls, etc.  Prefer ~/.dir_colors #64489</span>
+</span></span><span style="display:flex;"><span>	LS_COLORS<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -f ~/.dir_colors <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>		eval <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dircolors -b ~/.dir_colors<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">elif</span> <span style="color:#f92672">[[</span> -f /etc/DIR_COLORS <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>		eval <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dircolors -b /etc/DIR_COLORS<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>		eval <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>dircolors -b<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Note: We always evaluate the LS_COLORS setting even when it&#39;s the</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># default.  If it isn&#39;t set, then `ls` will only colorize by default</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># based on file attributes and ignore extensions (even the compiled</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># in defaults of dircolors). #583814</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> -n <span style="color:#e6db74">${</span>LS_COLORS:+set<span style="color:#e6db74">}</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>		use_color<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e"># Delete it if it&#39;s empty as it&#39;s useless in that case.</span>
+</span></span><span style="display:flex;"><span>		unset LS_COLORS
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># Some systems (e.g. BSD &amp; embedded) don&#39;t typically come with</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># dircolors so we need to hardcode some terminals in here.</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#e6db74">${</span>TERM<span style="color:#e6db74">}</span> in
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">[</span>aEkx<span style="color:#f92672">]</span>term* | rxvt* | gnome* | konsole* | screen | tmux | cons25 | *color<span style="color:#f92672">)</span> use_color<span style="color:#f92672">=</span>true ;;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">esac</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#e6db74">${</span>use_color<span style="color:#e6db74">}</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#f92672">[[</span> <span style="color:#e6db74">${</span>EUID<span style="color:#e6db74">}</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">]]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>		PS1<span style="color:#f92672">+=</span><span style="color:#e6db74">&#39;\[\033[01;31m\]\h\[\033[01;34m\] \w \$\[\033[00m\] &#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>		PS1<span style="color:#f92672">+=</span><span style="color:#e6db74">&#39;\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] &#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">#BSD#@export CLICOLOR=1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	alias ls<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls --color=auto&#39;</span>
+</span></span><span style="display:flex;"><span>	alias grep<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;grep --colour=auto&#39;</span>
+</span></span><span style="display:flex;"><span>	alias la<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls -A&#39;</span>
+</span></span><span style="display:flex;"><span>	alias ll<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls -alF&#39;</span>
+</span></span><span style="display:flex;"><span>	alias l<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ls -CF&#39;</span>
+</span></span><span style="display:flex;"><span>	alias n<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;neofetch&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e"># show root@ when we don&#39;t have colors</span>
+</span></span><span style="display:flex;"><span>	PS1<span style="color:#f92672">+=</span><span style="color:#e6db74">&#39;\u@\h \w \$ &#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> sh in /etc/bash/bashrc.d/*; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">[[</span> -r <span style="color:#e6db74">${</span>sh<span style="color:#e6db74">}</span> <span style="color:#f92672">]]</span> <span style="color:#f92672">&amp;&amp;</span> source <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>sh<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Try to keep environment pollution down, EPA loves us.</span>
+</span></span><span style="display:flex;"><span>u
+</span></span></code></pre></div><p>主要添加了别名，其他的可以自己修改</p>
+<p>还有一个镰刀锤子配置也蛮好看的，但使用<code>↑</code>键查看历史命令时有Bug,不介意的可以用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-.bashrc" data-lang=".bashrc"><span style="display:flex;"><span> PS1<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\e[1;32m\w\n\e[1;33m☭ \[</span><span style="color:#66d9ef">$(</span>tput sgr0<span style="color:#66d9ef">)</span><span style="color:#e6db74">\]&#34;</span>
+</span></span></code></pre></div><p>配置来源: <a href="https://www.zhihu.com/question/19803678/answer/1001803388">https://www.zhihu.com/question/19803678/answer/1001803388</a></p>
+<h4 id="sddm美化">SDDM美化</h4>
+<p>我们更换壁纸后一般连同SDDM的背景一起换了，但设置里的SDDM主题管理实在是难用，经常打不开更换界面，推荐直接到主题目录下更换</p>
+<ol>
+<li>
+<p>cd到需要配置的SDDM主题目录<code>/usr/share/sddm/themes/</code></p>
+</li>
+<li>
+<p>进入主题文件夹，你会看见之前设置的背景(若有的话)，和两个配置文件，分别是预设配置<code>theme.conf</code>和用户配置<code>theme.conf.user</code></p>
+</li>
+<li>
+<p>编辑用户配置<code>theme.conf.user</code>，找到<code>background=100857791_p113767970.png</code>这一行，可以看到目前我的背景为<code>100857791_p113767970.png</code></p>
+</li>
+<li>
+<p>将要设置的背景移入主题文件夹，将<code>background=</code>后的文件名改为要设置的文件名</p>
+</li>
+<li>
+<p>重启即可</p>
+</li>
+</ol>
+<h2 id="内核编译">内核编译</h2>
+<p>Arch下的内核编译只需要安装两个包即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo pacman -S bc inetutils
+</span></span></code></pre></div><p># inetutils提供hostsname</p>
+<p>到这里Arch的配置也基本完成了，我也可以睡个好觉了&hellip;</p>
+<p>再插一嘴，uu们有好的图床或对象储存推荐吗，博客老没图片也不行，最好能便宜点</p>
+<h2 id="参考引用">参考|引用</h2>
+<ul>
+<li>安装Hyprland的命令来源: <a href="https://blog.ticks.cc/posts/id/37hugsk/">https://blog.ticks.cc/posts/id/37hugsk/</a></li>
+</ul>
+<ul>
+<li>
+<p>桌面介绍: <a href="https://en.wikipedia.org/">https://en.wikipedia.org/</a></p>
+<p>-&gt;  <a href="https://wiki.archlinuxcn.org/wiki/KDE">https://wiki.archlinuxcn.org/wiki/KDE</a></p>
+</li>
+</ul>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://github.com/LazyVim/LazyVim?tab=readme-ov-file#%EF%B8%8F-requirements">https://github.com/LazyVim/LazyVim?tab=readme-ov-file#%EF%B8%8F-requirements</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+</div>
+</article>
+
+    <hr />
+    <p class="articleTagsContainer">
+        <span> </span>
+        <strong>Tags:</strong>
+        
+            <a
+                
+                href="/tags/kernel/">#Kernel</a>
+        
+            <a
+                
+                href="/tags/linux/">#Linux</a>
+        
+    </p>
+
+
+
+
+
+
+                    </main><footer>
+    <hr />
+
+<p><small>
+        2024 &copy; sorgDream - <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    </small></p>
+    <p><small>
+        <a href='https://gitlab.com/gabmus/hugo-ficurinia'>Ficurinia theme</a> for <a href='https://gohugo.io'>Hugo</a> by <a href='https://gabmus.org'>Gabriele Musco</a>. Licensed under <a href='https://www.gnu.org/licenses/agpl-3.0.html'>GNU AGPLv3</a>.
+    </small></p>
+</footer>
+</div>
+            </div>
+        </div>
+
+
+</body>
+</html>

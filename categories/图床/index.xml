@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
+  <channel>
+    <title>图床 on sorgDream&#39;s Blog</title>
+    <link>https://blog.sorgdream.com/categories/%E5%9B%BE%E5%BA%8A/</link>
+    <description>Recent content in 图床 on sorgDream&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>sorgDream - [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)</copyright>
+    <lastBuildDate>Mon, 22 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.sorgdream.com/categories/%E5%9B%BE%E5%BA%8A/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
+    
+    
+    <item>
+      <title>Frp自建内网穿透</title>
+      <link>https://blog.sorgdream.com/posts/nat-traversal/</link>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/posts/nat-traversal/</guid>
+      <description><![CDATA[<p>这几天一直在折腾内网穿透的事，原因很简单，服务器的ROM不够大，又没钱升级配置，又拍云的免费OSS不备案无法绑定域名，免费的内网穿透速率太小了，更别提还有流量限制</p>
+<p>想了想貌似只能自己建一个了，刚好手里有吃灰的Orangepi Zeor3，买的时候配了张128G的TF卡，虽然速度一般，但对于我来说是绰绰有余了</p>
+<h2 id="frp">frp</h2>
+<p>提到内网穿透，想到的肯定是大名顶顶的<strong>frp</strong>，目前在Github上已有76.3K starred</p>
+<p>网上的很多文章大多是教你用基于frp的一键配置脚本，但试了几个发现都没用后决定自己尝试</p>
+<h3 id="安装使用">安装&amp;使用</h3>
+<p>frp的安装很简单，参照<a href="https://gofrp.org/zh-cn/">文档</a>的教程</p>
+<ol>
+<li>
+<p>到<a href="https://github.com/fatedier/frp/releases/tag/v0.53.2">Releases</a>处下载适合的架构/系统的压缩包，解压到任意目录</p>
+</li>
+<li>
+<p>使用<code>./frps -c ./frps.toml</code>启动服务端</p>
+</li>
+<li>
+<p>使用<code>./frpc -c ./frpc.toml</code>启动客户端</p>
+</li>
+</ol>
+<h3 id="使用-systemd-开机自启动">使用 systemd 开机自启动</h3>
+<p>如果断开ssh连接，frp服务也会断开;可以将它设置为开机自启</p>
+<ol>
+<li>(如果尚未安装)使用<code>apt install systemd </code>安装，其他发行版使用其包管理器即可</li>
+<li>编辑<code>/etc/systemd/system/frps.service</code>创建frp服务配置，写入以下内容</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-service" data-lang="service"><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 服务名称，可自定义</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description </span><span style="color:#f92672">=</span><span style="color:#e6db74"> frp server</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">After </span><span style="color:#f92672">=</span><span style="color:#e6db74"> network.target syslog.target</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Wants </span><span style="color:#f92672">=</span><span style="color:#e6db74"> network.target</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Type </span><span style="color:#f92672">=</span><span style="color:#e6db74"> simple</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动frps的命令，需修改为您的frps的安装路径</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart </span><span style="color:#f92672">=</span><span style="color:#e6db74"> /path/to/frps -c /path/to/frps.toml</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy </span><span style="color:#f92672">=</span><span style="color:#e6db74"> multi-user.target</span>
+</span></span></code></pre></div><p>3.管理命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 启动frp</span>
+</span></span><span style="display:flex;"><span>sudo systemctl start frps
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 停止frp</span>
+</span></span><span style="display:flex;"><span>sudo systemctl stop frps
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 重启frp</span>
+</span></span><span style="display:flex;"><span>sudo systemctl restart frps
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 查看frp状态</span>
+</span></span><span style="display:flex;"><span>sudo systemctl status frps
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 开机自启动</span>
+</span></span><span style="display:flex;"><span>sudo systemctl enable frps
+</span></span></code></pre></div><p>之后的frpc也是大同小异，只需要更改名字和位置即可</p>
+<h3 id="配置">配置</h3>
+<p>重点来了，frp有两个配置，一个<code>frps.toml</code>用于服务端，一个<code>frpc.toml</code>用于客户端</p>
+<ol>
+<li>配置frps.toml</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">bindPort</span> = <span style="color:#ae81ff">7000</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vhostHTTPPort</span> = <span style="color:#ae81ff">7890</span>
+</span></span></code></pre></div><p><code>bindPort</code>不用管，<code>vhostHTTPPort</code>为连接的端口，默认为8080,但端口被我的评论占用了，所以改成7890</p>
+<p>如像我这样，配置完后可以通过<code>http://www.yourdomain.com:7890</code>访问</p>
+<ol start="2">
+<li>配置frpc.toml</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">serverAddr</span> = <span style="color:#e6db74">&#34;x.x.x.x&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">serverPort</span> = <span style="color:#ae81ff">7000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[[<span style="color:#a6e22e">proxies</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">name</span> = <span style="color:#e6db74">&#34;image-hosting&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> = <span style="color:#e6db74">&#34;http&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localIP</span> = <span style="color:#e6db74">&#34;192.168.xx.xxx&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">localPort</span> = <span style="color:#ae81ff">7890</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">customDomains</span> = [<span style="color:#e6db74">&#34;www.example.com&#34;</span>]
+</span></span></code></pre></div><p>serverAddr: 服务器IP</p>
+<p>name: 取一个好记的名字</p>
+<p>type: 因为要搭建网站所以选择http</p>
+<p>localIP: 本机IP</p>
+<p>localPort: 内网服务部署端口</p>
+<p>customDomains: 绑定的域名</p>
+<p>PS: 原本还有一个<code>remotePort = 6000</code>配置，看到文档没有就删了，实测没有影响</p>
+<p>将和 <a href="https://www.example.com">www.example.com</a> 的域名 A 记录解析到服务器的 IP 地址<code>x.x.x.x</code></p>
+<p>访问<code>www.example.com:7890</code>即可访问内网机器上的<code>7890</code>服务</p>
+<h3 id="nginx配置">Nginx配置</h3>
+<p>不得不说Nginx真是好用，配置方便，功能强大; 配置完frp,接下来就是nginx</p>
+<p>因为上面只进行了内网穿透，内网的机器还需要配置nginx来显示网站</p>
+<ol>
+<li>还没有安装的在等什么，使用<code>apt install nginx</code>安装nginx</li>
+<li>在<code>etc/nginx/conf.d/</code>文件夹内添加配置文件，文件名随意，以<code>.conf</code>作为拓展名</li>
+<li>增添配置，以下为我的配置</li>
+</ol>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen 7890;
+    server_name www.example.com;
+    root /home/image-hosting;
+
+    fancyindex on;            
+    fancyindex_exact_size off; 
+    fancyindex_localtime on; 
+    fancyindex_name_length 255; 
+    fancyindex_time_format &#34;%Y-%m-%d %H:%M:%S&#34;;
+
+    location / {
+    }
+}
+</code></pre><p>listen: 监听7890端口</p>
+<p>server_name: 绑定的域名</p>
+<p>root: 网站所在文件夹</p>
+<p>以下配置开启文件引索，若无需求可以忽略</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf"> fancyindex on;            
+    fancyindex_exact_size on; 
+    fancyindex_localtime on; 
+    fancyindex_name_length 255; 
+    fancyindex_time_format &#34;%Y-%m-%d %H:%M:%S&#34;;
+</code></pre><p>再一次尝试访问<code>www.example.com:7890</code>查看是否正常显示</p>
+<h4 id="去端口访问">去端口访问</h4>
+<p>整天带端口访问太丑了，可以使用nginx的反向代理功能解决，原理就是在服务器上套层nginx，将<code>www.example.com</code>反向代理至<code>www.example.com:7890</code></p>
+<p>以下是我的配置</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen 80;
+    server_name www.example.com; # 设置的域名
+    location / {
+             proxy_pass  http://www.example.com:7890; # 反向代理至8080端口
+    }
+}
+</code></pre><p>配置完尝试使用<code>www.example.com</code>访问</p>
+<h3 id="https">HTTPS</h3>
+<p>虽然现在已经可以较为优雅地访问了，但因为缺少ssl证书，每次访问都给我警告</p>
+<p>frp支持为本地 HTTP 服务启用 HTTPS，但需要自行下载证书到内网机器，而且无法使用像certbot这样的工具，所以我选择在服务器的Nginx配置证书</p>
+<p>关于如何获取证书，我的<a href="https://blog.inuya.ltd/posts/winter/">上上篇文章</a>已经讲的很清楚了，下面是我的配置</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen 80;
+    server_name img.inuya.ltd; # 设置的域名
+    location / {
+             proxy_pass  http://img.inuya.ltd:7890; # 反向代理至7890端口
+    }
+}
+
+server {
+    listen 443;
+    server_name img.inuya.ltd;
+    ssl_certificate /etc/letsencrypt/live/img.inuya.ltd/fullchain.pem;  # 配置证书
+    ssl_certificate_key /etc/letsencrypt/live/img.inuya.ltd/privkey.pem;
+    ssl_session_timeout 5m;
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+    # 表示使用的加密套件的类型。
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # 表示使用的TLS协议的类型。
+    ssl_prefer_server_ciphers on;
+    location / {
+            proxy_pass http://img.inuya.ltd:7890;
+    }
+}
+</code></pre><h2 id="图床">图床</h2>
+<p>搞定了内网穿透，但怎么把图片显示出来呢，1P面板有个图床的docker镜像，用了下感觉很一般，不如自己建一个</p>
+<p>因为没学过前端，所以只能边学边建，写出来的东西也是漏洞百出，但最起码能用了</p>
+<h3 id="文件引索">文件引索</h3>
+<p>原本是想写一个文件引索，看了几篇文章都是无从下手，偶然看到一篇关闭<code>Apache</code>默认文件引索功能的文章，想到Nginx是否也有这个功能，找了一下还真有，只不过需要手动开启</p>
+<p>在内网机器的nginx配置中添加以下内容</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen  80;
+    server_name 192.168.31.112;
+    root /home/image-hosting;
+    autoindex on;    	#启用或禁用目录列表输出
+    autoindex_format html； #设置目录列表的格式
+    autoindex_localtime on;  #指定目录列表中的时间是否应以本地时区或 UTC 输出
+    autoindex_exact_size off;  #是否应在目录列表中输出确切的文件大小
+}
+</code></pre><p>输入一个网站目录，看是否能浏览文件</p>
+<h3 id="嵌入引索">嵌入引索</h3>
+<p>因索有了，但我不想手动一个个翻图片，于是将它嵌入到了我的主页</p>
+<p>在代码中添加<code>&lt;iframe&gt;</code>标签即可嵌入一个网页，因为我想显示<code>Images</code>目录的引索，所以src中填入了<code>images/</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;div-pic&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">iframe</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;images/&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100%&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;800px&#34;</span> <span style="color:#a6e22e">scrolling</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;auto&#34;</span> <span style="color:#a6e22e">framespacing</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span> <span style="color:#a6e22e">allowfullscreen</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;true&#34;</span>&gt; &lt;/<span style="color:#f92672">iframe</span>&gt;   
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>如果想要更换嵌入的网站，只需要修改<code>src=&quot;&quot;</code> 里的内容为目标网址即可</p>
+<h4 id="美化引索">美化引索</h4>
+<p>但这样还有一个问题，默认的引索在网站的背景是透明的，导致看不清文件名，CSS添加的背景太亮了，又偶然看见一篇用第三方模块来美化的文章</p>
+<p><!-- raw HTML omitted -->使用<code>fancyindex</code>模块替代默认的引索，来达到美化的效果</p>
+<ol>
+<li><code>apt install libnginx-mod-http-fancyindex</code>安装模块</li>
+<li>修改/创建<code>/etc/nginx/conf.d/</code>下的配置，添加以下内容以开启引索</li>
+</ol>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">server {
+    listen 80;
+    server_name 192.168.31.112;
+    root /home/image-hosting;
+
+    fancyindex on;            
+    fancyindex_exact_size off; 
+    fancyindex_localtime on; 
+    fancyindex_name_length 255; 
+    fancyindex_time_format &#34;%Y-%m-%d %H:%M:%S&#34;;
+
+    location / {
+    }
+}
+</code></pre><p>返回网站，刷新即可看到新样式</p>
+<p>fancyindex还有许多主题可选，如<a href="https://github.com/Naereen/Nginx-Fancyindex-Theme">Nginx-Fancyindex-Theme</a>和<a href="https://github.com/alehaa/nginx-fancyindex-flat-theme">nginx-fancyindex-flat-theme</a></p>
+<p>也可以用<code>fancyindex</code>加<code>theme</code>关键字在Guthub搜索其他主题</p>
+<h2 id="补充">补充</h2>
+<p>其实内网穿透这个想法很早就有了，但一直搁置到现在;未来可能还会把Twikoo评论也放到开发板上，还是要看评论的人多不多</p>
+<p>最后祝大家玩得开心</p>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="https://nginx.org/en/docs/http/ngx_http_autoindex_module.html">Module ngx_http_autoindex_module</a></li>
+<li><a href="https://gofrp.org/zh-cn/">frp</a></li>
+</ul>
+]]></description>
+      
+    </item>
+    
+    
+    
+    <item>
+      <title>Icarus主题下的配置</title>
+      <link>https://blog.sorgdream.com/posts/upyun/</link>
+      <pubDate>Mon, 16 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/posts/upyun/</guid>
+      <description><![CDATA[<h2 id="题外话">题外话</h2>
+<p>久违地打开了VScode写起了文章，不得不说，用VScode来写MarkDown是真的方便，装个插件就可以预览了</p>
+<h2 id="icarus主题">Icarus主题</h2>
+<p><strong>回到正题</strong></p>
+<p>因为Keep老出问题，于是，在几天前，我将主题更换为BUtterfly，可配置的选项非常多，整体美观度也非常不错；看似一切都很完美，<del>那就没有这篇文章了</del></p>
+<p>可是有一个缺点，就是加载的速度太慢了，除了必要的头像等，已经尽力让网站不出现图片，但首次加载仍需2～5秒的时间，如果刚好网不好，那就至少得8秒以上了。</p>
+<blockquote>
+<p>其实早在几天前，我就开始申请又拍云联盟了，但因为网站访问时间太长，审核误认为无法访问给拒了</p>
+</blockquote>
+<p>办法当然有，最好的方法就是换主题，前一段时候用的next主题就不错，黑白色调，除了图片其他的都不用怎么加载</p>
+<p>于是我<del>又</del>换主题了，这次是有6K star的Icarus主题，整体看着也很不错，也没什么图片需要加载的</p>
+<h2 id="又拍云联盟">又拍云联盟</h2>
+<p>光换主题还不行，还得上魔法，因为我的博客部署在Github，所以访问比较慢，于是我打算给我的博客套个CDN</p>
+<blockquote>
+<p>CDN是什么</p>
+<p>简单来说就是把我的文章分散在各个节点，如果你在广州，就可以直接访问广州CDN上的缓存资源，就不用跨越半个地球去Github的服务器上找了</p>
+</blockquote>
+<p>你可能注意到了页脚处添加了<code>本网站由又拍云提供CDN加速/云储存服务</code>这是因为我加入了又拍云联盟；那么加入又拍云联盟又什么好处呢</p>
+<blockquote>
+<p>免费获取每月 10GB 存储空间 + 15GB 流量</p>
+</blockquote>
+<p>15GB流量对于我这种小型的博客完全够用了，而且10GB的云存储刚好可以用来作图床，这下所有的问题都解决了&mdash;&ndash;吗？</p>
+<h3 id="加入又拍云联盟">加入又拍云联盟</h3>
+<p>想要白嫖首先得在网站的下方添加又拍云的标记和链接(本教程基于Icarus，可能不适用于您的主题)</p>
+<ol>
+<li>首先找到<code>~/hexo/themes/icarus/layout/common/footer.jsx</code>其他主题的大概在这个目录或者上级目录<code>layout</code>中，用<code>vim footer.jsx</code>编辑它</li>
+<li>仿照格式，添加上又拍云的文字</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span> &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral&#34;</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noopener&#34;</span>&gt;<span style="color:#a6e22e">本网站由</span>&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/images/upyun.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{<span style="color:#a6e22e">width</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;50px&#39;</span>,<span style="color:#a6e22e">height</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;25px&#39;</span>}}/&gt;<span style="color:#a6e22e">提供CDN加速</span><span style="color:#f92672">/</span><span style="color:#a6e22e">云储存服务</span>&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span></code></pre></div><p>其中<code>https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referra</code>为又拍云提供的链接，<code>src=&quot;/images/upyun.png&quot;</code>为logo的路径</p>
+<h4 id="icp备案">ICP备案</h4>
+<p>Icarus默认是没有ICP备案填写的配置的，我们可以仿照添加一个ICP</p>
+<p>同样的文件，添加上</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span> &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://icp.gov.moe/?keyword=20230439&#34;</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noreferrer noopener&#34;</span>&gt;<span style="color:#a6e22e">萌ICP备20230439号</span>&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>                                &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>; <span style="color:#f92672">||</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">nbsp</span>;&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span></code></pre></div><p>其中添加上<code>&lt;span&gt;&amp;nbsp; || &amp;nbsp;&lt;/span&gt;</code>可于网站访问人数一同显示，中间用<code>||</code>隔开</p>
+<p>完成后填写号信息点击申请，1-3个工作日内会回复，但我的域名没备案，所以CDN用不了，图床给的测试域名也不知道什么时候会失效</p>
+<h2 id="又一题外话">又一题外话</h2>
+<p>真的很喜欢写题外话</p>
+<h3 id="友链">友链</h3>
+<p>Icarus的友链在侧边栏，这点和Next很像，同样的，一多就很难管理</p>
+<p>我单独创建了一个友链页来展示我的朋友们(再插一嘴，空想笔记的站长去备案了，暂时访问不了)</p>
+<p>用<code>hexo new page link</code>创建一个友链页面</p>
+<p>原本想看下又没有好的解决方案，但找到的都没用，最后只能自己折腾一个了。</p>
+<p>想要<a href="https://www.imaegoo.com/friends/">imaegoo</a>大佬的友链页</p>
+<p>在<code>source/link/index.md</code>填入以下内容生成一组(两个)友链</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-md" data-lang="md"><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;columns&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;column is-half&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noopener&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;博客链接&#34;</span>&gt;博客名称&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>           博客简介
+</span></span><span style="display:flex;"><span>       &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;column is-half&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;box&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noopener&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;博客链接&#34;</span>&gt;博客名称&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">br</span>&gt;
+</span></span><span style="display:flex;"><span>           博客简介
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>其中，每一个<code>&lt;div class=&quot;column is-half&quot;&gt;</code>就是一个友链，<code>&lt;div class=&quot;columns&quot;&gt;</code>范围内<code>&lt;div class=&quot;column is-half&quot;&gt;</code>的个数，就是一行显示的个数</p>
+<p>作者这里写了两个，一行就显示两个友链，手机等屏幕较小的就显示一个</p>
+<h4 id="简介超出字数省略">简介超出字数省略</h4>
+<p>如果你的友链简介过长，就会出现一个友链占用过多空间导致布局不美观；在书写友链前添加以下css即可解决</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#f92672">&lt;</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">box</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">overflow</span>: <span style="color:#66d9ef">hidden</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">text-overflow</span>: <span style="color:#66d9ef">ellipsis</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">white-space</span>: <span style="color:#66d9ef">nowrap</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/</span><span style="color:#f92672">style</span><span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><h3 id="评论">评论</h3>
+<p>之前Keep用的是Giscus评论系统，感觉还不错，最重要的是有两条全站唯一的评论在</p>
+<p>但Icarus不支持Giscus，需要手动修改comment.jsx</p>
+<p>还是同样的<code>~/hexo/themes/icarus/layout/common</code>目录，找到<strong>comment.jsx</strong></p>
+<p>在<code>&lt;h3 class=&quot;title is-5&quot;&gt;{__('article.comments')}&lt;/h3&gt;</code></p>
+<p>和<code>{(() =&gt; {</code>中填入Giscus生成的代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">logger</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;hexo-log&#39;</span>)();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Component</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;inferno&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">view</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;hexo-component-inferno/lib/core/view&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">module</span>.<span style="color:#a6e22e">exports</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">class</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Component</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">config</span>, <span style="color:#a6e22e">page</span>, <span style="color:#a6e22e">helper</span> } <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">props</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">__</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">helper</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">comment</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">config</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">comment</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">comment</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;string&#39;</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;card-content&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">h3</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title is-5&#34;</span>&gt;{<span style="color:#a6e22e">__</span>(<span style="color:#e6db74">&#39;article.comments&#39;</span>)}&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>               &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入仓库]&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">repo</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入仓库 ID]&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">category</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入分类名]&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">category</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;[在此输入分类 ID]&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;pathname&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">strict</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">reactions</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">enabled</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">emit</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;0&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">input</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">position</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;bottom&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preferred_color_scheme&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">data</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;zh-CN&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">+</span>                                <span style="color:#a6e22e">async</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">+</span>               &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                {(() =&gt; {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Comment</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">view</span>.<span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;comment/&#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">comment</span>.<span style="color:#a6e22e">type</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">Comment</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Comment</span>.<span style="color:#a6e22e">Cacheable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">Comment</span>.<span style="color:#a6e22e">Cacheable</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">Comment</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Comment</span> <span style="color:#a6e22e">config</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">config</span>} <span style="color:#a6e22e">page</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">page</span>} <span style="color:#a6e22e">helper</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">helper</span>} <span style="color:#a6e22e">comment</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">comment</span>} /&gt;;
+</span></span><span style="display:flex;"><span>                    } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">w</span>(<span style="color:#e6db74">`Icarus cannot load comment &#34;</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">comment</span>.<span style="color:#a6e22e">type</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;`</span>);
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                })()}
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>添加完后，使用<code>hexo s --debug</code>本地预览，看是否出现评论框</p>
+<p>这里又有一个问题，因为Icarus不支持Giscus，所以在<code>_config.icarus.yml</code>中，如果填入Giscus或者其他评论系统，生成界面和本地预览时都会出现warning，但不影响生成和预览</p>
+<h3 id="添加valine评论">添加Valine评论</h3>
+<p>用了一天的Utterances，发现不登陆就看不到评论；反正评论也没了，不如选个更好的评论系统，最终选择了Valine</p>
+<blockquote>
+<p>不用Waline的原因很简单，Vercel部署的时候提示我账号被锁了，懒得搞Gitlab，发邮件也没回我，无奈选用Valine</p>
+</blockquote>
+<p>因为Icarus支持Valine，所以只需要填写配置即可，无需再修改comment.jsx</p>
+<h4 id="learncloud">LearnCloud</h4>
+<ol>
+<li><a href="https://leancloud.cn/dashboard/login.html#/signin">登陆</a>或<a href="https://leancloud.cn/dashboard/login.html#/signup">注册</a>一个LearnCloud账号，进入<a href="https://leancloud.cn/dashboard/applist.html#/apps">控制台</a>创建一个应用，随便取一个名字，选择开发版</li>
+<li>找到设置/应用凭证，复制你的<code>AppID</code>和<code>AppKey</code></li>
+<li>转到主题配置文件<code>_config.icarus.yml</code>，在comment写入以下内容</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">comment</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">valine</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app_id</span>: <span style="color:#ae81ff">xxxxxxxxxxx-xxxxx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app_key</span>: <span style="color:#ae81ff">xxxxxxxxxxxxxxxxxxxxxx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">placeholder</span>: <span style="color:#e6db74">&#34;&#34;</span>                 <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">avatar</span>: <span style="color:#ae81ff">mm                     </span> <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">avatar_force</span>: <span style="color:#66d9ef">false</span>             <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">meta</span>: [<span style="color:#e6db74">&#34;nick&#34;</span>, <span style="color:#e6db74">&#34;mail&#34;</span>, <span style="color:#e6db74">&#34;link&#34;</span>]  <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">page_size</span>: <span style="color:#ae81ff">10</span>                   <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">lang</span>: <span style="color:#ae81ff">zh-CN                    </span> <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">visitor</span>: <span style="color:#66d9ef">false</span>                  <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">highlight</span>: <span style="color:#66d9ef">true</span>                 <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">record_ip</span>: <span style="color:#66d9ef">false</span>                <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_urls</span>:                    <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">emoji_cdn</span>:                      <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">emoji_maps</span>:                     <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">enable_qq</span>: <span style="color:#66d9ef">false</span>                <span style="color:#75715e"># 可选填</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">required_fields</span>: []             <span style="color:#75715e"># 可选填</span>
+</span></span></code></pre></div><p>具体每个配置是什么意思请看<a href="https://valine.js.org/configuration.html">Valine文档</a></p>
+<h4 id="坑1">坑1</h4>
+<p>因为us.avoscloud.com域名失效，如果不填写<code>serverURLs</code>，就会导致<code>net::ERR_CONNECTION_CLOSED</code>这个错误</p>
+<p>解决方法很简单，只需设置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">server_urls</span>: <span style="color:#ae81ff">https://xxxxxxxx.api.lncldglobal.com</span> <span style="color:#75715e"># 把xxxxxxxx替换成你自己AppID的前8位字符</span>
+</span></span></code></pre></div><p>重新hexo三联即可评论</p>
+<h4 id="坑2">坑2</h4>
+<blockquote>
+<p>为履行合规责任，降低平台风险， LeanCloud 国际版共享域名将于 2022 年 8 月 1 日起不再向中国大陆的最终用户提供服务，国际版共享域名仅服务于海外用户。</p>
+</blockquote>
+<p>因为这个原因，解决完坑1后国内用户如果要评论只能挂代理，国内网路也看不到别人的评论，需要我们绑定自己的域名</p>
+<ol>
+<li>打开<code>设置/域名绑定</code>，输入你想绑定的二级域名</li>
+<li>转到你购买域名的地方，添加一个CNAME解析，值为绑定时生成的值</li>
+<li>等待DNS刷新，完成绑定</li>
+<li>将上面的<code>server_urls: </code>设置为绑定的域名</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">server_urls</span>: <span style="color:#ae81ff">https://xxxx.example.xxx</span>
+</span></span></code></pre></div><p>注意不要漏了<code>https://</code></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p><a href="https://www.imaegoo.com/2022/dec-27/">博客主题源码和配置文件
+</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ppoffice/hexo-theme-icarus/issues/1207">能否支持一下 giscus 评论 #1207</a></p>
+</li>
+<li>
+<p><a href="https://ppoffice.github.io/hexo-theme-icarus/Plugins/Comment/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E7%94%A8%E6%88%B7%E8%AF%84%E8%AE%BA%E6%8F%92%E4%BB%B6/#Valine">Icarus用户指南 - 用户评论插件</a></p>
+</li>
+<li>
+<p><a href="https://github.com/xCss/Valine/issues/423">无法正常发送评论 #423</a></p>
+</li>
+<li>
+<p><a href="https://blog.yidaozhan.top/2022/07/19/valine-block-china-fix/">LeanCloud 更改用户条款后，Valine 在中国大陆不能评论的解决办法</a></p>
+</li>
+<li>
+<p><a href="https://valine.js.org/">Valine</a></p>
+</li>
+</ul>]]></description>
+      
+    </item>
+    
+    
+  </channel>
+</rss>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
+  <channel>
+    <title>Go on sorgDream&#39;s Blog</title>
+    <link>https://blog.sorgdream.com/categories/go/</link>
+    <description>Recent content in Go on sorgDream&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>sorgDream - [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)</copyright>
+    <lastBuildDate>Wed, 31 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.sorgdream.com/categories/go/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
+    
+    
+    <item>
+      <title>Pigo实现人脸识别</title>
+      <link>https://blog.sorgdream.com/posts/pigo-face/</link>
+      <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.sorgdream.com/posts/pigo-face/</guid>
+      <description><![CDATA[<p>最近学Go的时候发现个好玩的库，可以识别图片中的人像，并且提供二进制发行版</p>
+<h2 id="使用">使用</h2>
+<p>从<a href="https://github.com/esimov/pigo/releases">Releases</a>处下载对应系统的二进制</p>
+<p>下载<a href="https://github.com/esimov/pigo/blob/master/cascade/facefinder">facefinder</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./pigo -in input.png -out out.png &lt; input/source.jpg -cf<span style="color:#f92672">=</span>/path/to/cascade
+</span></span></code></pre></div><p>即可识别<code>input.png</code>，并输出<code>output.png</code></p>
+<h2 id="预览图">预览图</h2>
+<p><a href="https://user-images.githubusercontent.com/883386/40916662-2fbbae1a-6809-11e8-8afd-d4ed40c7d4e9.png">Rectangle face marker</a></p>
+<p><a href="https://user-images.githubusercontent.com/883386/40916683-447088a8-6809-11e8-942f-3112c10bede3.png">Circle face marker</a></p>
+<h2 id="识别视频">识别视频</h2>
+<p>因为Pigo默认只能识别图片，想让它识别整个视频的话只能将视频切成图片进行逐一识别，毕竟视频也是图片组成的</p>
+<h3 id="下载视频">下载视频</h3>
+<p>B站不提供直接的视频下载方式，试了几个网站的下载工具发现要不就是不能用，要么分辨率太低，所以这里使用自带的缓存功能</p>
+<p>到手机<code>/storage/emulated/0/Android/data/com.bilibili.app.in/download/</code>目录下，会发现一串以数字命名的文件夹，进入其子目录，会看到一个以数字命名的文件夹，和两个<code>.xml</code>,<code>.json</code>结尾的文件</p>
+<p>进入数字文件夹，需要的两个文件出现了，<code>audio.m4s</code>为音频文件，<code>video.m4s</code>为视频文件，将音频拓展名重命名为<code>*.mp3</code>，视频为<code>*.mp4</code>，移动到任意剪辑软件能读取的目录</p>
+<p>将两个文件导入剪辑软件，将视频和音频同步拖到对应轨道，导出即可</p>
+<h3 id="切割视频">切割视频</h3>
+<p>这里博主使用的工具是<a href="https://ffmpeg.org/">FFmpeg</a></p>
+<p>最好创建一个专门的文件夹存放输出的图片</p>
+<blockquote>
+<p>A complete, cross-platform solution to record, convert and stream audio and video.</p>
+</blockquote>
+<p>使用<code>ffmpeg -i lockHand.mp4 -r 24 ./lockHand/output%d.png </code>以每秒24张图片分解视频</p>
+<p>-i: 指定分割的视频</p>
+<p>-r: 设置帧率，默认为25</p>
+<p><code>output%d.png</code>中<code>%d</code>是占位符，ffmpeg将以1.2.3&hellip;的顺序命名输出文件</p>
+<p>完成后，到<code>lockHand</code>目录下即可看到输出的图片</p>
+<h3 id="批量识别">批量识别</h3>
+<p>一个18秒，24帧的视频就需要432张图片，这么多图片难不成要我们手动一张张识别？估计得识别到地球爆炸;像我这么懒的人肯定不会这么做，我决定用一个脚本来替我完成这项艰巨的任务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span><span style="color:#f92672">((</span>i<span style="color:#f92672">=</span>1;i&lt;<span style="color:#f92672">=</span>422;i++<span style="color:#f92672">))</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  ./pigo -in ./lockHand/output$i.png -out ./outHand/out$i.png -cf ./facefinder
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;处理次数:&#34;</span>$i
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><p>很简单的脚本，其中<code>442</code>为生成的源图片数量，<code>./lockHand/output$i.png</code>需要改为源图片文件文件夹，<code>$i</code>和<code>%d</code>差不多，产出目录同上</p>
+<p>等待脚本完成，到<code>./lockHand</code>即可看到产出图片</p>
+<h3 id="合并视频">合并视频</h3>
+<p>同样使用FFmpeg</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -r <span style="color:#ae81ff">24</span> -f image2 -i ./outHand/out%d.png output.mp4  <span style="color:#75715e">##合成</span>
+</span></span></code></pre></div><p>参数代表的含义与分割视频一致</p>
+<p>激动人心的时刻到了，点击output.mp4即可看到识别的红框</p>
+]]></description>
+      
+    </item>
+    
+    
+  </channel>
+</rss>

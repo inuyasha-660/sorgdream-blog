@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html class="" lang="en"><head>
+    
+    <meta name="robots" content="noai, noimageai">
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7" />
+
+    <link
+    rel="icon"
+    href='/avatar.jpg'
+/>
+<link
+    rel="shortcut icon"
+    href='/avatar.jpg'
+    type="image/x-icon"
+/>
+<link
+    rel="apple-touch-icon"
+    href='/avatar.jpg'
+/>
+
+    <link
+        rel="icon"
+        href='/avatar.jpg'
+        type="image/svg+xml"
+    />
+
+<title>
+        
+            KernelSU内核编译  &ndash;
+        
+        sorgDream&#39;s Blog
+    </title>
+
+    
+    <link href="/symbols-nerd-font/symbols-nerd-font.css" rel="stylesheet" integrity="sha512-lydow8GLOLlYNOtHlksNCmGWWCBsbIEtikXpHzfWqx78HLlyQZHOzyLwPpKol4Th6aCwLUXOfODVYgwrd3nwKQ=="/>
+    <link href="/jetbrains-mono/jetbrains-mono.css" rel="stylesheet" integrity="sha512-tJxlgL6v1Y7kFf+qB8SloaAMKnOAw6WouknxXtIjkBux9Y/9aX81EUWOJO8c/3l98DmjG8brr4to7zaez606Fg=="/>
+
+    
+    
+    <link type="text/css" rel="stylesheet" href=https://blog.sorgdream.com/css/styles.abbd6311bb4b6ca58f8e7398140529245ae0f6428b759fcd830742eee2619eabb900ba9914a9affb82aa9a16a9b9ea727bb315315a976a0db0e7513a5f12c504.css integrity="sha512-q71jEbtLbKWPjnOYFAUpJFrg9kKLdZ/NgwdC7uJhnqu5ALqZFKmv&#43;4Kqmhapuepye7MVMVqXag2w51E6XxLFBA==" />
+<meta name="author" content="sorgDream" />
+
+    
+        <meta name="keywords" content='Kernel, Linux' />
+    
+    
+        <meta name="description" content="KernelSU编译教程" />
+    
+
+<meta property="og:site_name"
+    content='sorgDream&#39;s Blog' />
+
+    <meta property="og:title" content="KernelSU内核编译" />
+    <meta property="og:type" content="article" />
+    
+    <meta
+        property="article:author" content="sorgDream" />
+    <meta
+        property="article:published_time"
+        content='2023-08-05T00:00:00Z&#43;0000' />
+    
+        
+            <meta property="article:tag" content="Kernel" />
+        
+            <meta property="article:tag" content="Linux" />
+        
+    
+    <meta property="og:url" content="https://blog.sorgdream.com/posts/kernelsu/" />
+    
+    
+    <meta property="og:image"
+        content="https://blog.sorgdream.com/avatar.jpg" />
+    
+        <meta property="og:description" content="KernelSU编译教程" />
+    
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:domain"
+      content='blog.sorgdream.com'
+/>
+<meta property="twitter:url" content="https://blog.sorgdream.com/posts/kernelsu/" />
+
+
+    <meta name="twitter:title" content="KernelSU内核编译" />
+    
+    
+    
+    <meta name="twitter:image"
+        content="https://blog.sorgdream.com/avatar.jpg" />
+    
+        <meta name="twitter:description" content="KernelSU编译教程" />
+    
+
+<link rel="manifest" href="/manifest/index.json" />
+</head>
+
+
+<body>
+        <div id="baseContainer"><header class="">
+<div class="titleAndSearchContainer">
+        <div id="titleContainer">
+            
+                <a class="unstyledLink" href="/">
+                    <img src='/avatar.jpg' alt='Logo'/>
+                </a>
+            
+            <div class="rightOfLogo">
+                <div class="titleAndHamburger">
+                    <h1>
+                        <a class="unstyledLink" href="/">sorgDream&#39;s Blog</a>
+                        
+                    </h1>
+                    
+                </div>
+                <div id="wide_nav"><nav>
+    
+    <ul id="main-nav">
+        <li><a href="/">Home</a></li>
+        
+            <li><a href="/posts/">Posts</a></li>
+        
+        
+        
+        
+        
+        
+            <li><a href="/about/">About</a></li>
+        
+            <li><a href="/friends/">Friends</a></li>
+        
+        
+            <li><a href="/tags/">Tags</a></li>
+        
+        
+    </ul>
+</nav>
+</div>
+            </div>
+        </div>
+        <div class="search">
+    <input id="searchbar" type="text" placeholder='Search' />
+    <span class="nerdlink" onclick="newSearch();">&#xf002;</span>
+</div>
+<script>
+    function newSearch() {
+        let term = searchbar.value.trim();
+        if (!term) return;
+        location.href = `/search/?q=${term}`;
+    }
+    searchbar.onkeyup = (ev) => {if (ev.keyCode == 13) newSearch()};
+</script>
+
+    </div>
+    <div id="links">
+        <a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="/index.xml">
+    
+    
+        &#xf09e;
+    
+    <span>
+        RSS
+    </span>
+</a>
+
+        
+        <a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="mailto:inuyasha-660@outlook.com">
+    
+    
+        &#xf6ed;
+    
+    <span>
+        Email
+    </span>
+</a>
+<a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="https://github.com/inuyasha-660">
+    
+    
+        &#xf09b;
+    
+    <span>
+        Github
+    </span>
+</a>
+<a
+    
+        rel="noreferrer"
+    
+    target="_blank"
+    class="nerdlink"
+    href="https://x.com/inuyasha_660">
+    
+    
+        &#xf099;
+    
+    <span>
+        Twitter
+    </span>
+</a>
+
+    </div>
+    
+
+</header>
+<div id="contentContainer">
+                <div id="content">
+                    <main>
+<article class="card single">
+    
+        <h1>KernelSU内核编译</h1>
+    
+    
+        <p class="date">
+            <span title='Date'> </span>
+    2023-08-05
+
+</p>
+    
+    
+    
+    <div class="articleToc">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#环境搭建">环境搭建</a>
+      <ul>
+        <li><a href="#系统安装">系统安装</a></li>
+        <li><a href="#编译环境">编译环境</a></li>
+        <li><a href="#系统代理">系统代理</a></li>
+      </ul>
+    </li>
+    <li><a href="#源码下载">源码下载</a>
+      <ul>
+        <li><a href="#内核源码">内核源码</a></li>
+        <li><a href="#添加kernelsu">添加KernelSU</a></li>
+        <li><a href="#工具链下载">工具链下载</a></li>
+      </ul>
+    </li>
+    <li><a href="#编译脚本">编译脚本</a></li>
+    <li><a href="#开始编译">开始编译</a></li>
+    <li><a href="#打包内核">打包内核</a>
+      <ul>
+        <li><a href="#anykernel3">AnyKernel3</a></li>
+        <li><a href="#magiskboot">MagiskBoot</a></li>
+      </ul>
+    </li>
+    <li><a href="#拓展">拓展</a>
+      <ul>
+        <li><a href="#修改内核源码">修改内核源码</a></li>
+        <li><a href="#bugreport">BugReport</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考部分引用">参考|部分引用</a></li>
+  </ul>
+</nav>
+    <hr />
+</div>
+
+    <div><h2 id="环境搭建">环境搭建</h2>
+<p>搭建编译所需的环境</p>
+<h3 id="系统安装">系统安装</h3>
+<p>教程基于ubuntu，你可以选择实机安装或者使用wsl2,如何安装请看<a href="https://learn.microsoft.com/zh-cn/windows/wsl/install">使用 WSL 在 Windows 上安装 Linux</a></p>
+<blockquote>
+<p>注：wsl下的文件传输需将文件移动到挂载点<code>/mnt/c</code></p>
+</blockquote>
+<h3 id="编译环境">编译环境</h3>
+<p>使用以下命令安装所需软件包</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt install -y bc bison build-essential curl flex g++-multilib gcc-multilib <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>                    git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>                    lib32z1-dev liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>                    libssl-dev libxml2 libxml2-utils lzop pngcrush schedtool <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>                    squashfs-tools xsltproc zip zlib1g-dev unzip  
+</span></span></code></pre></div><h3 id="系统代理">系统代理</h3>
+<p>如果你的设备能够直连Github，并且速度还不错，那你可以忽视这一步
+<!-- raw HTML omitted -->我们使用clash作为代理工具</p>
+<h4 id="linux">Linux</h4>
+<p>请看我的另一篇文章<a href="https://blog.inuya.ltd/posts/clash/">Clash-For-Linux</a></p>
+<h4 id="windows">Windows</h4>
+<ol>
+<li>下载<a href="https://github.com/Z-Siqi/Clash-for-Windows_Chinese/releases">Clash-For-Windows</a>(已存档)</li>
+<li>都有图形化操作界面了还要我教？</li>
+<li>使用以下命令设置终端代理</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>export https_proxy<span style="color:#f92672">=</span>http://127.0.0.1:7890 http_proxy<span style="color:#f92672">=</span>http://127.0.0.1:7890 all_proxy<span style="color:#f92672">=</span>socks5://127.0.0.1:7891
+</span></span></code></pre></div><h2 id="源码下载">源码下载</h2>
+<p>现在开始下载所需的内核源码和工具，我们最好创建一个工作目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mkdir -p kernel  <span style="color:#f92672">&amp;&amp;</span> cd kernel <span style="color:#75715e">#创建并进入工作目录</span>
+</span></span><span style="display:flex;"><span>mkdir -p toolchains  <span style="color:#75715e">#工具链目录</span>
+</span></span><span style="display:flex;"><span>mkdir -p source  <span style="color:#75715e">#内核源码目录</span>
+</span></span></code></pre></div><h3 id="内核源码">内核源码</h3>
+<p>如果你是小米用户，你可以试着下官方的源码，不过官方的源码可能不能成功编译，而且年久失修，大部分新机都没有公布源码，所以还是建议使用类原生的源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>官方源码仓库
+</span></span><span style="display:flex;"><span>https://github.com/MiCode/Xiaomi_Kernel_OpenSource
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>如果要下载的话请使用 git 命令
+</span></span><span style="display:flex;"><span>git clone --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> https://github.com/MiCode/Xiaomi_Kernel_OpenSource -b cannon-r-oss  
+</span></span></code></pre></div><p><code>cannon-r-oss</code>是作者的手机代号，需将<code>cannon-r-oss</code>换成自己源码的分支</p>
+<p>类原生的话就简单多了，点击仓库右上角的<strong>code</strong>,把HTTPS的链接复制下来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone xxxxxxxxxxxx.git  <span style="color:#75715e"># xxxxxxxx.git换成自己的链接</span>
+</span></span></code></pre></div><h3 id="添加kernelsu">添加KernelSU</h3>
+<p>只需使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -LSs <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh&#34;</span> | bash -
+</span></span></code></pre></div><p>即可将KernelSU添加到内核源码树
+<!-- raw HTML omitted -->然后需要编辑你的配置文件，通常在<code>arch/arm64/configs/</code>，较新的机型也可能在<code>arch/arm64/configs/vendor/</code></p>
+<p>进入文件夹，找到类似<code>设备代号_defconfig</code>的文件，比如我的代号是<strong>cannon</strong>，配置文件就是<code>cannon_defconfig</code></p>
+<p>使用<strong>vim</strong>编辑配置文件，用<code>ESC+/</code>进入查找，在/后面输入你要找的内容，例如<code>/KPROBES</code>
+<!-- raw HTML omitted -->如果没有开启相关的配置，需要手动添加</p>
+<pre tabindex="0"><code>CONFIG_KPROBES=y
+CONFIG_HAVE_KPROBES=y
+CONFIG_KPROBE_EVENTS=y
+</code></pre><h3 id="工具链下载">工具链下载</h3>
+<p>作者使用zys-clang12和gcc4.9进行编译
+<!-- raw HTML omitted -->因为zyc-clang需要下载压缩包并解压，所以我们先使用<strong>git</strong>下载gcc</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git
+</span></span></code></pre></div><p>浏览器访问</p>
+<pre tabindex="0"><code>https://github.com/ZyCromerZ/Clang/releases/download/12.0.1-20230207-release/Clang-12.0.1-20230207.tar.gz
+</code></pre><p>下载zyc-clang</p>
+<p>下载完成后用<code>tar -zxvf xxxx.tar.gz</code>解压</p>
+<p>如果觉得目录太常不方便的话，可以用<strong>mv</strong>命令重命名文件夹</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>mv &lt;原名称&gt; &lt;你想改的名称&gt;   
+</span></span></code></pre></div><h2 id="编译脚本">编译脚本</h2>
+<p>一般我们会用一个编译脚本设置环境变量、配置文件等
+<!-- raw HTML omitted -->我的脚本是<del>抄</del>参考别人教程</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>vim build.sh <span style="color:#75715e">#创建编译脚本 </span>
+</span></span></code></pre></div><p>写入以下内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>starttime<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date +<span style="color:#e6db74">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>export ARCH<span style="color:#f92672">=</span>arm64
+</span></span><span style="display:flex;"><span>export SUBARCH<span style="color:#f92672">=</span>arm64
+</span></span><span style="display:flex;"><span>make O<span style="color:#f92672">=</span>out cannon_defconfig
+</span></span><span style="display:flex;"><span>              make -j8 O<span style="color:#f92672">=</span>out <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    NM<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/llvm-nm <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    OBJCOPY<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/llvm-objcopy <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    LD<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/ld.lld <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        CROSS_COMPILE<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/aarch64-linux-gnu- <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        CROSS_COMPILE_ARM32<span style="color:#f92672">=</span>~/kernel/toolchains/gcc-arm-4.9/bin/arm-linux-androideabi- <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        CC<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/clang <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        AR<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/llvm-ar <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        OBJDUMP<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/llvm-objdump <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>        STRIP<span style="color:#f92672">=</span>~/kernel/toolchains/clang-12/bin/llvm-strip
+</span></span><span style="display:flex;"><span>        2&gt;&amp;<span style="color:#ae81ff">1</span> | tee error.log
+</span></span><span style="display:flex;"><span>endtime<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date +<span style="color:#e6db74">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span style="color:#e6db74">`</span>
+</span></span><span style="display:flex;"><span>start_seconds<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date --date<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; </span>$starttime<span style="color:#e6db74">&#34;</span> +%s<span style="color:#66d9ef">)</span>;
+</span></span><span style="display:flex;"><span>end_seconds<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>date --date<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$endtime<span style="color:#e6db74">&#34;</span> +%s<span style="color:#66d9ef">)</span>;
+</span></span><span style="display:flex;"><span>echo Start: $starttime.
+</span></span><span style="display:flex;"><span>echo End: $endtime.
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Build Time: &#34;</span><span style="color:#66d9ef">$((</span>end_seconds-start_seconds<span style="color:#66d9ef">))</span><span style="color:#e6db74">&#34;s.&#34;</span>
+</span></span></code></pre></div><p>需要注意的是，<code>cannon_defconfig</code>配置文件的路径已经在<code>arch/arm64/configs/</code></p>
+<p>假设你的配置文件是<code>arch/arm64/configs/example_defconfig</code>那你只需要填写<code>example_defconfig</code>即可</p>
+<p>但如果你的配置文件位于<code>arch/arm64/configs/vendor/example_defconfig</code>则需要填写<code>vendor/example_defconfig</code></p>
+<h2 id="开始编译">开始编译</h2>
+<p>用<code>chmod +x build.sh</code>添加执行权限，<code>./build.sh</code>执行编译脚本，产出在<code>out/arch/arm64/boot</code>目录</p>
+<h2 id="打包内核">打包内核</h2>
+<p>能来到这一步，你应该能成功编译出内核，恭喜你，接下来我们需要将它打包成boot或内核刷入</p>
+<h3 id="anykernel3">AnyKernel3</h3>
+<p>项目地址：https://github.com/osm0sis/AnyKernel3</p>
+<p>用<strong>git</strong>下载AnyKernel3</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>git clone https://github.com/osm0sis/AnyKernel3.git
+</span></span></code></pre></div><p>你需要把产出的Image放到AnyKernel3的根目录，然后编辑<code>anykernel.sh</code>
+<!-- raw HTML omitted -->需要改的是以下几点</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>kernel.string<span style="color:#f92672">=</span>KernelSU-cannon-inuyasha <span style="color:#75715e">#内核名称</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>.devicecheck<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">#设备检测，为0时关闭</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>.modules<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>.systemless<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>.cleanup<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span>.cleanuponabort<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>device.name1<span style="color:#f92672">=</span>cannon  <span style="color:#75715e">#设备代号，可以设置多个</span>
+</span></span><span style="display:flex;"><span>device.name2<span style="color:#f92672">=</span>cannong
+</span></span><span style="display:flex;"><span>device.name3<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>device.name4<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>supported.versions<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>supported.patchlevels<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>supported.vendorpatchlevels<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>block<span style="color:#f92672">=</span>auto;   
+</span></span><span style="display:flex;"><span>is_slot_device<span style="color:#f92672">=</span>auto;  
+</span></span><span style="display:flex;"><span>ramdisk_compression<span style="color:#f92672">=</span>auto; 
+</span></span><span style="display:flex;"><span>patch_vbmeta_flag<span style="color:#f92672">=</span>auto; 
+</span></span></code></pre></div><p>配置完后使用<code>zip -r9 UPDATE-AnyKernel3.zip * -x .git README.md *placeholder</code>即可打包内核</p>
+<p>如果使用zsh，可能会报错<code>not matches found</code>，只需要在<code>.zshrc</code>中添加</p>
+<pre tabindex="0"><code>setopt no_nomatch
+</code></pre><p>然后再<code>source ~/.zshrc</code>即可解决</p>
+<h3 id="magiskboot">MagiskBoot</h3>
+<p>如果你不喜欢用anykernel3，你也可以提取原版的boot.img使用编译出来的image替换原厂kernel</p>
+<ol>
+<li>首先到<a href="https://github.com/topjohnwu/Magisk/releases">Magisk</a>下载magisk.apk,重命名为.zip并解压</li>
+<li>把解压后的<code>Magisk-v26.1/lib/arm64-v8a/libmagiskboot.so</code>文件，用 adb push 到手机</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>adb push Magisk-v26.1/lib/arm64-v8a/libmagiskboot.so /data/local/tmp/magiskboot 
+</span></span></code></pre></div><p><code>Magisk-v26.1</code>需要改成下载的版本号</p>
+<ol start="3">
+<li>按照上面的方法把提取的boot.img和编译出的Image都push到手机</li>
+<li>用<code>adb shell</code>进入adb，然后进入手机<code>/data/local/tmp</code>/目录，赋予magiskboot可执行权限<code>chmod +x magiskboot</code></li>
+<li>执行<code>./magiskboot unpack boot.img</code>解包boot.img得到kernel文件</li>
+<li>用<strong>Image</strong>替换<strong>kernel</strong><code>mv -f Image kernel</code></li>
+<li>最后执行<code>./magiskboot repack boot.img</code>命令重新打包boot.img，得到<strong>new-boot.img</strong>，备份原厂boot后在fastboot中刷入即</li>
+</ol>
+<h2 id="拓展">拓展</h2>
+<p>如果kprobe不正常工作，就会出现无限重启，不开机，替换boot后仍显示不支持等错误，接下来我们将手动修改源码集成ksu</p>
+<p>首先让我们验证是否为kprobe的问题，</p>
+<ol>
+<li>首先用vim打开<code>KernelSU/kernel/ksu.c</code></li>
+<li>找到<code>ksu_enable_sucompat() 和 ksu_enable_ksud()</code>这两行，使用<code>//</code>注释掉</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">// ksu_enable_sucompat();
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ksu_enable_ksud()
+</span></span></span></code></pre></div><p>就像这样</p>
+<p>重新编译你的内核，看能否开机，如果能正常开机就是kprobe的问题，如果还是不能开机，检查你的源码是否适用你的系统</p>
+<h3 id="修改内核源码">修改内核源码</h3>
+<ol>
+<li>使用这条命添加KSU</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl -LSs <span style="color:#e6db74">&#34;https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh&#34;</span> | bash -
+</span></span></code></pre></div><ol start="2">
+<li>因为要改的比较多，推荐去看<a href="https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html">官方文档</a>，写的比较详细</li>
+</ol>
+<h3 id="bugreport">BugReport</h3>
+<p>如果手动集成还是失败，你可以去Github提供一个<a href="https://github.com/tiann/KernelSU/issues/new/choose">BugReport</a>给作者，在管理其设置，发送日志即可发送错误日志</p>
+<h2 id="参考部分引用">参考|部分引用</h2>
+<p><a href="https://kernelsu.org/zh_CN/guide/how-to-integrate-for-non-gki.html">如何为非 GKI 内核集成 KernelSU </a></p>
+<p><a href="https://blog.ticks.cc/posts/id/ef0vy/">红米K40内核KernelSU编译</a></p>
+<p><a href="https://zixijian.github.io/2021/01/15/008.html"> 手机端编译安卓内核</a></p></div>
+</article>
+
+    <hr />
+    <p class="articleTagsContainer">
+        <span> </span>
+        <strong>Tags:</strong>
+        
+            <a
+                
+                href="/tags/kernel/">#Kernel</a>
+        
+            <a
+                
+                href="/tags/linux/">#Linux</a>
+        
+    </p>
+
+
+
+
+
+
+                    </main><footer>
+    <hr />
+
+<p><small>
+        2024 &copy; sorgDream - <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    </small></p>
+    <p><small>
+        <a href='https://gitlab.com/gabmus/hugo-ficurinia'>Ficurinia theme</a> for <a href='https://gohugo.io'>Hugo</a> by <a href='https://gabmus.org'>Gabriele Musco</a>. Licensed under <a href='https://www.gnu.org/licenses/agpl-3.0.html'>GNU AGPLv3</a>.
+    </small></p>
+</footer>
+</div>
+            </div>
+        </div>
+
+
+</body>
+</html>
