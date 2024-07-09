@@ -22,8 +22,7 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./pigo -in input.png -out out.png &lt; input/source.jpg -cf<span style="color:#f92672">=</span>/path/to/cascade
 </span></span></code></pre></div><p>即可识别<code>input.png</code>，并输出<code>output.png</code></p>
 <h2 id="预览图">预览图</h2>
-<p><a href="https://user-images.githubusercontent.com/883386/40916662-2fbbae1a-6809-11e8-8afd-d4ed40c7d4e9.png">Rectangle face marker</a></p>
-<p><a href="https://user-images.githubusercontent.com/883386/40916683-447088a8-6809-11e8-942f-3112c10bede3.png">Circle face marker</a></p>
+<p><img src="https://user-images.githubusercontent.com/883386/40916662-2fbbae1a-6809-11e8-8afd-d4ed40c7d4e9.png" alt="Rectangle face marker"></p>
 <h2 id="识别视频">识别视频</h2>
 <p>因为Pigo默认只能识别图片，想让它识别整个视频的话只能将视频切成图片进行逐一识别，毕竟视频也是图片组成的</p>
 <h3 id="下载视频">下载视频</h3>
@@ -58,6 +57,8 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ffmpeg -r <span style="color:#ae81ff">24</span> -f image2 -i ./outHand/out%d.png output.mp4  <span style="color:#75715e">##合成</span>
 </span></span></code></pre></div><p>参数代表的含义与分割视频一致</p>
 <p>激动人心的时刻到了，点击output.mp4即可看到识别的红框</p>
+<h2 id="演示视频">演示视频</h2>
+<p><a href="https://www.bilibili.com/video/BV1uU421Z7LU/?share_source=copy_web&amp;vd_source=1345dad103258a05d7c3f69f300fc342">控头大师，但Pigo实现</a></p>
 ]]></description>
       
     </item>
