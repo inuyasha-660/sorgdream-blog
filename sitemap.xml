@@ -5,7 +5,16 @@
     <loc>https://blog.sorgdream.com/categories/</loc>
     <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
+    <loc>https://blog.sorgdream.com/tags/driver/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/tags/freebsd/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
     <loc>https://blog.sorgdream.com/categories/freebsd/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/tags/linux/</loc>
     <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/categories/linux/</loc>
@@ -17,13 +26,13 @@
     <loc>https://blog.sorgdream.com/</loc>
     <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
+    <loc>https://blog.sorgdream.com/tags/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
     <loc>https://blog.sorgdream.com/posts/wifibox/</loc>
     <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/posts/r98-keyboard/</loc>
-    <lastmod>2024-02-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.sorgdream.com/tags/</loc>
     <lastmod>2024-02-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/tags/%E6%97%A5%E5%B8%B8/</loc>
@@ -42,9 +51,6 @@
     <lastmod>2024-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/categories/go/</loc>
-    <lastmod>2024-01-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.sorgdream.com/tags/linux/</loc>
     <lastmod>2024-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/posts/pigo-face/</loc>

@@ -72,7 +72,7 @@ defaultroute_delay=&#34;0&#34;
 </ol>
 <p>根据作者的方法，需要将<code>/sbin/dhclient wifibox0</code>添加进<code>/etc/rc.local</code>以解决此问题</p>
 <h2 id="总结">总结</h2>
-<p>这几天的使用，给我印象最深的是FreeBSD的精简和稳定性，每个软件包包的大小能控制得很好，ZFS和Raid Z挺适合用于服务器，希望FreeBSD能越来越好。</p>
+<p>这几天的使用，给我印象最深的是FreeBSD的精简和稳定性，每个软件包的大小能控制得很好，ZFS和Raid Z挺适合用于服务器，希望FreeBSD能越来越好。</p>
 ]]></description>
       
     </item>

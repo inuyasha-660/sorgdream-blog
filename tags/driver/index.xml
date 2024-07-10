@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><?xml-stylesheet href="/feed_style.xsl" type="text/xsl"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="https://www.rssboard.org/media-rss">
   <channel>
-    <title>FreeBSD on sorgDream&#39;s Blog</title>
-    <link>https://blog.sorgdream.com/categories/freebsd/</link>
-    <description>Recent content in FreeBSD on sorgDream&#39;s Blog</description>
+    <title>Driver on sorgDream&#39;s Blog</title>
+    <link>https://blog.sorgdream.com/tags/driver/</link>
+    <description>Recent content in Driver on sorgDream&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>sorgDream - [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)</copyright>
-    <lastBuildDate>Wed, 10 Jul 2024 08:27:11 +0800</lastBuildDate><atom:link href="https://blog.sorgdream.com/categories/freebsd/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
+    <lastBuildDate>Wed, 10 Jul 2024 08:27:11 +0800</lastBuildDate><atom:link href="https://blog.sorgdream.com/tags/driver/index.xml" rel="self" type="application/rss+xml" /><icon>https://blog.sorgdream.com/avatar.jpg</icon>
     
     
     <item>
