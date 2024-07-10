@@ -3,15 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.sorgdream.com/categories/</loc>
-    <lastmod>2024-02-17T00:00:00+00:00</lastmod>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/categories/freebsd/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/categories/linux/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/posts/</loc>
-    <lastmod>2024-02-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.sorgdream.com/posts/r98-keyboard/</loc>
-    <lastmod>2024-02-17T00:00:00+00:00</lastmod>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/posts/wifibox/</loc>
+    <lastmod>2024-07-10T08:27:11+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.sorgdream.com/posts/r98-keyboard/</loc>
     <lastmod>2024-02-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/tags/</loc>
@@ -42,9 +51,6 @@
     <lastmod>2024-01-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/posts/nat-traversal/</loc>
-    <lastmod>2024-01-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.sorgdream.com/categories/linux/</loc>
     <lastmod>2024-01-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.sorgdream.com/tags/%E5%9B%BE%E5%BA%8A/</loc>
